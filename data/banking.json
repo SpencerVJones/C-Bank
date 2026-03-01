@@ -1,0 +1,996 @@
+{
+  "Users": [
+    {
+      "Id": "eb35106a-34e4-4313-9f32-77d0ea3775ca",
+      "Email": "admin@consoleatm.local",
+      "PasswordHash": "PqiTOMzMX9sXNYnJNXiG/hUk7YbzT3j7Kt5RU0QBmRk=",
+      "PasswordSalt": "X8OUN5taCJ0OS8TsAb1ZzQ==",
+      "FirstName": "System",
+      "LastName": "Admin",
+      "Address": "1 Console Way",
+      "Phone": "555-0100",
+      "Role": 2,
+      "MfaEnabled": true,
+      "TotpSecret": "",
+      "CreatedUtc": "2026-02-19T20:07:28.848548+00:00",
+      "LastLoginUtc": null,
+      "FailedLoginAttempts": 0,
+      "FailedMfaAttempts": 0,
+      "LockedUntilUtc": null,
+      "Settings": {
+        "EmailNotificationsEnabled": true,
+        "SecurityAlertsEnabled": true,
+        "MarketingEmailsEnabled": false
+      },
+      "RefreshSessions": []
+    },
+    {
+      "Id": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "Email": "spencer@example.com",
+      "PasswordHash": "uuepxzKvx0Dc\u002B79EaP\u002BQhezfD4iFwurimlV6O0lFMuE=",
+      "PasswordSalt": "118UQ2FGmpatDCxFVE0NzQ==",
+      "FirstName": "Spencer",
+      "LastName": "Jones",
+      "Address": "100 Main Street",
+      "Phone": "555-0178",
+      "Role": 1,
+      "MfaEnabled": true,
+      "TotpSecret": "",
+      "CreatedUtc": "2026-02-19T20:07:28.865677+00:00",
+      "LastLoginUtc": "2026-02-19T20:08:26.492646+00:00",
+      "FailedLoginAttempts": 0,
+      "FailedMfaAttempts": 0,
+      "LockedUntilUtc": null,
+      "Settings": {
+        "EmailNotificationsEnabled": true,
+        "SecurityAlertsEnabled": true,
+        "MarketingEmailsEnabled": false
+      },
+      "RefreshSessions": [
+        {
+          "Id": "9228b693-ee7c-4061-bdae-b70f3bea4a24",
+          "RefreshToken": "s3ZaNne0pTKDNJ6sd9i3AKaF24VslYWcRbWts1vw3pP8ksKlaStt7yzM2uwBpkD4",
+          "IssuedUtc": "2026-02-19T20:08:26.492646+00:00",
+          "ExpiresUtc": "2026-03-21T20:08:26.492646+00:00",
+          "DeviceId": "753353285ea14211a9d0fd2c3d3ca26a"
+        }
+      ]
+    },
+    {
+      "Id": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "Email": "jonesspencer99@icloud.com",
+      "PasswordHash": "R/k3TV1EiSRDvNrWjdYPXF8jS7GirbpJZWDDPsaehSU=",
+      "PasswordSalt": "vTVGT4u1M/aWoTqOwCauyA==",
+      "FirstName": "Spencer",
+      "LastName": "Jones",
+      "Address": "Toronto, Ontario",
+      "Phone": "2158249909",
+      "Role": 1,
+      "MfaEnabled": true,
+      "TotpSecret": "",
+      "CreatedUtc": "2026-02-25T17:11:53.008429+00:00",
+      "LastLoginUtc": "2026-02-28T01:38:20.358844+00:00",
+      "FailedLoginAttempts": 0,
+      "FailedMfaAttempts": 0,
+      "LockedUntilUtc": null,
+      "Settings": {
+        "EmailNotificationsEnabled": true,
+        "SecurityAlertsEnabled": true,
+        "MarketingEmailsEnabled": false
+      },
+      "RefreshSessions": [
+        {
+          "Id": "38fbe904-b594-45ea-b155-d64547ed925a",
+          "RefreshToken": "bZ0Nnc0XnrZGvCWGKnSMnjPOvyl88cYPOdRIMJCyrW2zqR9D8VnNkccGGGeMxeB-",
+          "IssuedUtc": "2026-02-25T17:12:24.947069+00:00",
+          "ExpiresUtc": "2026-03-27T17:12:24.947069+00:00",
+          "DeviceId": "eec8891f20a1438faa47ccdb6c3df712"
+        },
+        {
+          "Id": "8fd9943d-3721-4356-a675-bc03f6f86e22",
+          "RefreshToken": "IbZtX2xOl_mePOqBkv27s6DKAZCsC1-FTRXpSf9ky4DLjmmn7wzgexi1KyCmHYHD",
+          "IssuedUtc": "2026-02-25T20:35:10.832927+00:00",
+          "ExpiresUtc": "2026-03-27T20:35:10.832927+00:00",
+          "DeviceId": "d6f30c815d6b4d70b70653c3a6729623"
+        },
+        {
+          "Id": "7275a3e3-b744-4f82-af80-049ad1cc10bb",
+          "RefreshToken": "qt9oQWLuCPpBA0E6auh4paG2kZ_jcPqN-2CFrn-3Z0wqBRop2BcWwOdWnTcbJwhB",
+          "IssuedUtc": "2026-02-28T01:38:20.358844+00:00",
+          "ExpiresUtc": "2026-03-30T01:38:20.358844+00:00",
+          "DeviceId": "e9343e48217341778cd986b38f8a1706"
+        }
+      ]
+    },
+    {
+      "Id": "4c043515-5044-42fd-8768-53c8392580f9",
+      "Email": "spencervjones@gmail.com",
+      "PasswordHash": "BHv\u002BSIacU8qw6QKestpoeI\u002BxwaPrDC\u002B4bQZk92HZijc=",
+      "PasswordSalt": "SrFvdZKPwohkr6aMUS2fJw==",
+      "FirstName": "Spencer",
+      "LastName": "Jones",
+      "Address": "",
+      "Phone": "",
+      "Role": 1,
+      "MfaEnabled": true,
+      "TotpSecret": "",
+      "CreatedUtc": "2026-02-25T20:34:55.032434+00:00",
+      "LastLoginUtc": null,
+      "FailedLoginAttempts": 0,
+      "FailedMfaAttempts": 0,
+      "LockedUntilUtc": null,
+      "Settings": {
+        "EmailNotificationsEnabled": true,
+        "SecurityAlertsEnabled": true,
+        "MarketingEmailsEnabled": false
+      },
+      "RefreshSessions": []
+    },
+    {
+      "Id": "66238c61-8f0d-4e24-a5eb-217a20583ff8",
+      "Email": "jonesvspener@gmail.com",
+      "PasswordHash": "ULrxLV9E5ecj/Lmar1nPpOf99FaIyvLvi\u002BLRlOqwC2Y=",
+      "PasswordSalt": "UdkyQluZuN1hh/dNZPEW\u002BA==",
+      "FirstName": "S",
+      "LastName": "J",
+      "Address": "",
+      "Phone": "",
+      "Role": 1,
+      "MfaEnabled": true,
+      "TotpSecret": "",
+      "CreatedUtc": "2026-02-25T20:38:29.74341+00:00",
+      "LastLoginUtc": null,
+      "FailedLoginAttempts": 0,
+      "FailedMfaAttempts": 0,
+      "LockedUntilUtc": null,
+      "Settings": {
+        "EmailNotificationsEnabled": true,
+        "SecurityAlertsEnabled": true,
+        "MarketingEmailsEnabled": false
+      },
+      "RefreshSessions": []
+    },
+    {
+      "Id": "46438361-c5c3-4380-b544-3179750827c6",
+      "Email": "123@gmail.com",
+      "PasswordHash": "5p0Xv2fDSQuqJxUBXJGDq6A3cIT7Fbu0Nrv0MjrWcno=",
+      "PasswordSalt": "UmPsXwnlVUUiiZpof6K4VQ==",
+      "FirstName": "b",
+      "LastName": "c",
+      "Address": "",
+      "Phone": "",
+      "Role": 1,
+      "MfaEnabled": true,
+      "TotpSecret": "",
+      "CreatedUtc": "2026-02-25T20:39:16.939333+00:00",
+      "LastLoginUtc": "2026-02-25T20:39:40.401714+00:00",
+      "FailedLoginAttempts": 0,
+      "FailedMfaAttempts": 0,
+      "LockedUntilUtc": null,
+      "Settings": {
+        "EmailNotificationsEnabled": true,
+        "SecurityAlertsEnabled": true,
+        "MarketingEmailsEnabled": false
+      },
+      "RefreshSessions": [
+        {
+          "Id": "1877c012-1407-4545-a90e-7a9db6a10d30",
+          "RefreshToken": "l39yA5ahqLe9UdwUnuPbrs31s5t-boDoRnnW-KiuJFqTHURxbJRrBI45oAlsATzn",
+          "IssuedUtc": "2026-02-25T20:39:40.401714+00:00",
+          "ExpiresUtc": "2026-03-27T20:39:40.401714+00:00",
+          "DeviceId": "d6f30c815d6b4d70b70653c3a6729623"
+        }
+      ]
+    }
+  ],
+  "Accounts": [
+    {
+      "Id": "104a355a-c17f-42db-a6f7-b51a28d1e72a",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "Type": 1,
+      "Nickname": "Everyday Checking",
+      "AccountNumber": "557509701",
+      "RoutingNumber": "222990525",
+      "Status": 1,
+      "AvailableBalance": 7425.23,
+      "LedgerBalance": 7425.23,
+      "CreatedUtc": "2026-02-19T20:07:28.865915+00:00"
+    },
+    {
+      "Id": "6bab6a85-243e-4266-be51-f00d42b0e731",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "Type": 2,
+      "Nickname": "Emergency Savings",
+      "AccountNumber": "141346539",
+      "RoutingNumber": "956978150",
+      "Status": 1,
+      "AvailableBalance": 2100.00,
+      "LedgerBalance": 2100.00,
+      "CreatedUtc": "2026-02-19T20:07:28.866026+00:00"
+    },
+    {
+      "Id": "b4e706ab-ccb4-4147-9669-211419b82d05",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "Type": 1,
+      "Nickname": "Everyday Checking",
+      "AccountNumber": "316064179",
+      "RoutingNumber": "368485389",
+      "Status": 1,
+      "AvailableBalance": 249,
+      "LedgerBalance": 249,
+      "CreatedUtc": "2026-02-25T17:11:53.009988+00:00"
+    },
+    {
+      "Id": "b29f5096-f038-4171-8d9c-ca5efcddc5ae",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "Type": 2,
+      "Nickname": "Primary Savings",
+      "AccountNumber": "713366095",
+      "RoutingNumber": "241739102",
+      "Status": 1,
+      "AvailableBalance": 1,
+      "LedgerBalance": 1,
+      "CreatedUtc": "2026-02-25T17:11:53.00999+00:00"
+    },
+    {
+      "Id": "7904e35c-fbc8-4578-ad58-228db4180b66",
+      "UserId": "4c043515-5044-42fd-8768-53c8392580f9",
+      "Type": 1,
+      "Nickname": "Everyday Checking",
+      "AccountNumber": "481083167",
+      "RoutingNumber": "166850971",
+      "Status": 1,
+      "AvailableBalance": 250,
+      "LedgerBalance": 250,
+      "CreatedUtc": "2026-02-25T20:34:55.032766+00:00"
+    },
+    {
+      "Id": "f332863f-9044-419c-ad33-4004f0c3ee88",
+      "UserId": "4c043515-5044-42fd-8768-53c8392580f9",
+      "Type": 2,
+      "Nickname": "Primary Savings",
+      "AccountNumber": "940052559",
+      "RoutingNumber": "134783004",
+      "Status": 1,
+      "AvailableBalance": 0,
+      "LedgerBalance": 0,
+      "CreatedUtc": "2026-02-25T20:34:55.033722+00:00"
+    },
+    {
+      "Id": "1611c020-c59c-4ea1-bc09-af14bb4c1f40",
+      "UserId": "66238c61-8f0d-4e24-a5eb-217a20583ff8",
+      "Type": 1,
+      "Nickname": "Everyday Checking",
+      "AccountNumber": "688825462",
+      "RoutingNumber": "951726758",
+      "Status": 1,
+      "AvailableBalance": 250,
+      "LedgerBalance": 250,
+      "CreatedUtc": "2026-02-25T20:38:29.743484+00:00"
+    },
+    {
+      "Id": "faa1145c-c4b4-4525-92a8-9fd6efbce876",
+      "UserId": "66238c61-8f0d-4e24-a5eb-217a20583ff8",
+      "Type": 2,
+      "Nickname": "Primary Savings",
+      "AccountNumber": "877018664",
+      "RoutingNumber": "582143691",
+      "Status": 1,
+      "AvailableBalance": 0,
+      "LedgerBalance": 0,
+      "CreatedUtc": "2026-02-25T20:38:29.743486+00:00"
+    },
+    {
+      "Id": "371954b9-59e0-4cc3-b33f-157a80e1fba6",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "Type": 1,
+      "Nickname": "Everyday Checking",
+      "AccountNumber": "755165507",
+      "RoutingNumber": "841869846",
+      "Status": 1,
+      "AvailableBalance": 249,
+      "LedgerBalance": 249,
+      "CreatedUtc": "2026-02-25T20:39:16.939429+00:00"
+    },
+    {
+      "Id": "76ee64b7-3ea8-4416-8ff8-98c28c717e33",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "Type": 2,
+      "Nickname": "Primary Savings",
+      "AccountNumber": "806510013",
+      "RoutingNumber": "165114754",
+      "Status": 1,
+      "AvailableBalance": 1,
+      "LedgerBalance": 1,
+      "CreatedUtc": "2026-02-25T20:39:16.939431+00:00"
+    }
+  ],
+  "LinkedExternalAccounts": [],
+  "Transactions": [
+    {
+      "Id": "7107edff-a1dc-4901-85e1-ac11a05aa33f",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "AccountId": "104a355a-c17f-42db-a6f7-b51a28d1e72a",
+      "CreatedUtc": "2026-02-19T20:07:28.866271+00:00",
+      "PostedUtc": "2026-02-19T20:07:28.866366+00:00",
+      "State": 2,
+      "Amount": 3000.00,
+      "Category": "Income",
+      "MerchantName": "Employer Payroll",
+      "Description": "Monthly paycheck",
+      "ReceiptNote": "",
+      "ReferenceCode": "TX-A1E41330F7",
+      "Counterparty": ""
+    },
+    {
+      "Id": "9ae4d339-5f88-46c0-bee1-32e1fb8e66dc",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "AccountId": "104a355a-c17f-42db-a6f7-b51a28d1e72a",
+      "CreatedUtc": "2026-02-19T20:07:28.866397+00:00",
+      "PostedUtc": "2026-02-19T20:07:28.866397+00:00",
+      "State": 2,
+      "Amount": -122.50,
+      "Category": "Dining",
+      "MerchantName": "Urban Table",
+      "Description": "Dinner with friends",
+      "ReceiptNote": "",
+      "ReferenceCode": "TX-52D072A7B0",
+      "Counterparty": ""
+    },
+    {
+      "Id": "d9120e38-6e04-48c3-a476-fd049ad83680",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "AccountId": "6bab6a85-243e-4266-be51-f00d42b0e731",
+      "CreatedUtc": "2026-02-19T20:07:28.866398+00:00",
+      "PostedUtc": "2026-02-19T20:07:28.866398+00:00",
+      "State": 2,
+      "Amount": 600.00,
+      "Category": "Savings",
+      "MerchantName": "Internal Transfer",
+      "Description": "Savings contribution",
+      "ReceiptNote": "",
+      "ReferenceCode": "TX-B4BFDBDE7F",
+      "Counterparty": ""
+    },
+    {
+      "Id": "c39dc027-d72e-4072-82ea-afb77f9a403f",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "AccountId": "b4e706ab-ccb4-4147-9669-211419b82d05",
+      "CreatedUtc": "2026-02-25T20:36:18.945263+00:00",
+      "PostedUtc": "2026-02-25T20:36:18.945264+00:00",
+      "State": 2,
+      "Amount": -1,
+      "Category": "Transfer",
+      "MerchantName": "Internal Transfer",
+      "Description": "Transfer to Primary Savings (80F7E8)",
+      "ReceiptNote": "",
+      "ReferenceCode": "TX-935367E8E9",
+      "Counterparty": ""
+    },
+    {
+      "Id": "5dd8190f-63c1-4828-89a0-a27e66934797",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "AccountId": "b29f5096-f038-4171-8d9c-ca5efcddc5ae",
+      "CreatedUtc": "2026-02-25T20:36:18.945266+00:00",
+      "PostedUtc": "2026-02-25T20:36:18.945266+00:00",
+      "State": 2,
+      "Amount": 1,
+      "Category": "Transfer",
+      "MerchantName": "Internal Transfer",
+      "Description": "Transfer from Everyday Checking",
+      "ReceiptNote": "",
+      "ReferenceCode": "TX-CAC13B383F",
+      "Counterparty": ""
+    },
+    {
+      "Id": "1130bb78-5992-49ef-b94d-d440e940de6b",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "AccountId": "371954b9-59e0-4cc3-b33f-157a80e1fba6",
+      "CreatedUtc": "2026-02-25T21:07:30.466139+00:00",
+      "PostedUtc": "2026-02-25T21:07:30.466142+00:00",
+      "State": 2,
+      "Amount": -1,
+      "Category": "Transfer",
+      "MerchantName": "Internal Transfer",
+      "Description": "Transfer to Primary Savings (536EE4)",
+      "ReceiptNote": "",
+      "ReferenceCode": "TX-2DEB793789",
+      "Counterparty": ""
+    },
+    {
+      "Id": "5579e108-b7b1-45a4-953b-3b86ddcd7fd4",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "AccountId": "76ee64b7-3ea8-4416-8ff8-98c28c717e33",
+      "CreatedUtc": "2026-02-25T21:07:30.466155+00:00",
+      "PostedUtc": "2026-02-25T21:07:30.466155+00:00",
+      "State": 2,
+      "Amount": 1,
+      "Category": "Transfer",
+      "MerchantName": "Internal Transfer",
+      "Description": "Transfer from Everyday Checking",
+      "ReceiptNote": "",
+      "ReferenceCode": "TX-05F845C30C",
+      "Counterparty": ""
+    }
+  ],
+  "Transfers": [
+    {
+      "Id": "3e537a36-3442-451b-a152-9b49d5b1e443",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "SourceAccountId": "b4e706ab-ccb4-4147-9669-211419b82d05",
+      "DestinationInternalAccountId": "b29f5096-f038-4171-8d9c-ca5efcddc5ae",
+      "DestinationExternalAccountId": null,
+      "Amount": 1,
+      "Memo": "Savings",
+      "IsExternalAch": false,
+      "State": 3,
+      "RequestedUtc": "2026-02-25T20:35:46.254729+00:00",
+      "ScheduledUtc": "2026-02-25T20:35:46.254729+00:00",
+      "SettlesUtc": null,
+      "Frequency": 1,
+      "NextRunUtc": null,
+      "IdempotencyKey": "22a487ee8049496a8ae193f9f97de8cc"
+    },
+    {
+      "Id": "80f7e888-ea51-4989-a13a-ae6dc62d0d9e",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "SourceAccountId": "b4e706ab-ccb4-4147-9669-211419b82d05",
+      "DestinationInternalAccountId": "b29f5096-f038-4171-8d9c-ca5efcddc5ae",
+      "DestinationExternalAccountId": null,
+      "Amount": 1,
+      "Memo": "Test",
+      "IsExternalAch": false,
+      "State": 3,
+      "RequestedUtc": "2026-02-25T20:36:18.944791+00:00",
+      "ScheduledUtc": "2026-02-25T20:36:18.944791+00:00",
+      "SettlesUtc": "2026-02-25T20:36:18.944791+00:00",
+      "Frequency": 1,
+      "NextRunUtc": null,
+      "IdempotencyKey": "bc5b08f1cad54a418beabb6519602e7d"
+    },
+    {
+      "Id": "9e4b5f9d-1b77-4a9e-9ddb-55b703f2b9dd",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "SourceAccountId": "371954b9-59e0-4cc3-b33f-157a80e1fba6",
+      "DestinationInternalAccountId": "371954b9-59e0-4cc3-b33f-157a80e1fba6",
+      "DestinationExternalAccountId": null,
+      "Amount": 1,
+      "Memo": "Test",
+      "IsExternalAch": false,
+      "State": 3,
+      "RequestedUtc": "2026-02-25T21:07:11.982494+00:00",
+      "ScheduledUtc": "2026-02-25T16:07:00-05:00",
+      "SettlesUtc": null,
+      "Frequency": 1,
+      "NextRunUtc": null,
+      "IdempotencyKey": "9a7cfad96e30406683dcc4a634315d49"
+    },
+    {
+      "Id": "536ee4ee-4297-41ea-9511-b5d8bdaf6224",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "SourceAccountId": "371954b9-59e0-4cc3-b33f-157a80e1fba6",
+      "DestinationInternalAccountId": "76ee64b7-3ea8-4416-8ff8-98c28c717e33",
+      "DestinationExternalAccountId": null,
+      "Amount": 1,
+      "Memo": "Test",
+      "IsExternalAch": false,
+      "State": 3,
+      "RequestedUtc": "2026-02-25T21:07:30.465163+00:00",
+      "ScheduledUtc": "2026-02-25T16:08:00-05:00",
+      "SettlesUtc": "2026-02-25T21:07:30.465163+00:00",
+      "Frequency": 1,
+      "NextRunUtc": null,
+      "IdempotencyKey": "382302b6926b408fb425150e272d99ad"
+    }
+  ],
+  "Budgets": [
+    {
+      "Id": "52539f2d-ddb7-47b0-9533-8293df507f97",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "Category": "Dining",
+      "MonthlyLimit": 450
+    },
+    {
+      "Id": "238006cc-75ad-47d5-9d2f-a4cc1e8cd329",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "Category": "Groceries",
+      "MonthlyLimit": 650
+    },
+    {
+      "Id": "0538f43e-8d99-4043-9a48-83a4158f9818",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "Category": "Travel",
+      "MonthlyLimit": 100
+    }
+  ],
+  "Goals": [
+    {
+      "Id": "5ba19224-d38c-4c42-bc3b-fafeab62dd8b",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "SavingsAccountId": "6bab6a85-243e-4266-be51-f00d42b0e731",
+      "Name": "Laptop Fund",
+      "TargetAmount": 1200,
+      "CurrentAmount": 420
+    }
+  ],
+  "Notifications": [
+    {
+      "Id": "2ec1241c-09a0-41cf-b1a0-ddcfffcab243",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "CreatedUtc": "2026-02-19T20:07:28.866571+00:00",
+      "Severity": 1,
+      "Message": "Welcome to ConsoleATM Digital Banking.",
+      "IsRead": false
+    },
+    {
+      "Id": "58b309cd-85d7-4370-b88f-34fbedcbceeb",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "CreatedUtc": "2026-02-19T20:08:26.494207+00:00",
+      "Severity": 3,
+      "Message": "New device login detected: Mozilla/5.0 (127.0.0.1)",
+      "IsRead": false
+    },
+    {
+      "Id": "ba95920c-ce47-4a28-93de-bc258dccb311",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "CreatedUtc": "2026-02-25T17:11:53.009992+00:00",
+      "Severity": 2,
+      "Message": "Your new accounts are ready.",
+      "IsRead": false
+    },
+    {
+      "Id": "75c4fcb8-76d4-41d7-8612-a95b4358a6b3",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "CreatedUtc": "2026-02-25T17:12:24.947452+00:00",
+      "Severity": 3,
+      "Message": "New device login detected: Mozilla/5.0 (127.0.0.1)",
+      "IsRead": false
+    },
+    {
+      "Id": "680e10e0-91dc-4644-aa87-efea88a3cb2a",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "CreatedUtc": "2026-02-25T17:13:44.7845+00:00",
+      "Severity": 3,
+      "Message": "Account ****6095 was frozen.",
+      "IsRead": false
+    },
+    {
+      "Id": "0f26217c-8bc3-4e72-a95e-2f67c3b1ea86",
+      "UserId": "4c043515-5044-42fd-8768-53c8392580f9",
+      "CreatedUtc": "2026-02-25T20:34:55.033725+00:00",
+      "Severity": 2,
+      "Message": "Your new accounts are ready.",
+      "IsRead": false
+    },
+    {
+      "Id": "8953fc5d-c9f9-4e81-9448-e76996e62053",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "CreatedUtc": "2026-02-25T20:35:10.833267+00:00",
+      "Severity": 3,
+      "Message": "New device login detected: Mozilla/5.0 (127.0.0.1)",
+      "IsRead": false
+    },
+    {
+      "Id": "4e52866a-2bfa-4146-b232-08196e394252",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "CreatedUtc": "2026-02-25T20:36:18.945267+00:00",
+      "Severity": 2,
+      "Message": "Internal transfer completed ($1.00).",
+      "IsRead": false
+    },
+    {
+      "Id": "8b7e6345-ccd7-4b93-9dd7-c29889e3129c",
+      "UserId": "66238c61-8f0d-4e24-a5eb-217a20583ff8",
+      "CreatedUtc": "2026-02-25T20:38:29.74349+00:00",
+      "Severity": 2,
+      "Message": "Your new accounts are ready.",
+      "IsRead": false
+    },
+    {
+      "Id": "5cda52f3-34cc-4034-9416-71835334991d",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "CreatedUtc": "2026-02-25T20:39:16.939437+00:00",
+      "Severity": 2,
+      "Message": "Your new accounts are ready.",
+      "IsRead": false
+    },
+    {
+      "Id": "0f060c58-cb9f-48ac-aa3f-fcf3b95d8ec5",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "CreatedUtc": "2026-02-25T20:39:40.401761+00:00",
+      "Severity": 3,
+      "Message": "New device login detected: Mozilla/5.0 (127.0.0.1)",
+      "IsRead": false
+    },
+    {
+      "Id": "ee01712a-c909-4e8e-a6a1-23e6c969dc93",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "CreatedUtc": "2026-02-25T21:07:30.466157+00:00",
+      "Severity": 2,
+      "Message": "Internal transfer completed ($1.00).",
+      "IsRead": false
+    },
+    {
+      "Id": "e7240fc1-3596-4009-bc8d-68fa5671bcb2",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "CreatedUtc": "2026-02-28T01:37:42.611113+00:00",
+      "Severity": 1,
+      "Message": "MFA code generated for login on Mozilla/5.0. Demo code: 706123",
+      "IsRead": false
+    },
+    {
+      "Id": "870d4728-602b-4ff9-a9e5-3d6230de2eba",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "CreatedUtc": "2026-02-28T01:38:20.358864+00:00",
+      "Severity": 3,
+      "Message": "New device login detected: Mozilla/5.0 (127.0.0.1)",
+      "IsRead": false
+    }
+  ],
+  "LoginHistory": [
+    {
+      "Id": "08d7b985-0d69-46ff-9b98-bee9a9bf8bc3",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "TimestampUtc": "2026-02-19T20:08:26.494058+00:00",
+      "DeviceId": "753353285ea14211a9d0fd2c3d3ca26a",
+      "DeviceName": "Mozilla/5.0",
+      "IpAddress": "127.0.0.1",
+      "UserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36",
+      "IsNewDevice": true
+    },
+    {
+      "Id": "377a6612-8991-4005-9934-6e03c2ed835c",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "TimestampUtc": "2026-02-25T17:12:24.947451+00:00",
+      "DeviceId": "eec8891f20a1438faa47ccdb6c3df712",
+      "DeviceName": "Mozilla/5.0",
+      "IpAddress": "127.0.0.1",
+      "UserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+      "IsNewDevice": true
+    },
+    {
+      "Id": "40505b0b-de52-4928-b22b-5bccc5347de0",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "TimestampUtc": "2026-02-25T20:35:10.833266+00:00",
+      "DeviceId": "d6f30c815d6b4d70b70653c3a6729623",
+      "DeviceName": "Mozilla/5.0",
+      "IpAddress": "127.0.0.1",
+      "UserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+      "IsNewDevice": true
+    },
+    {
+      "Id": "fb04cc90-d10b-463b-95c6-0da0a414e2f2",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "TimestampUtc": "2026-02-25T20:39:40.40176+00:00",
+      "DeviceId": "d6f30c815d6b4d70b70653c3a6729623",
+      "DeviceName": "Mozilla/5.0",
+      "IpAddress": "127.0.0.1",
+      "UserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+      "IsNewDevice": true
+    },
+    {
+      "Id": "26356cd0-8036-418b-97cb-3aa07bd1e48e",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "TimestampUtc": "2026-02-28T01:38:20.358862+00:00",
+      "DeviceId": "e9343e48217341778cd986b38f8a1706",
+      "DeviceName": "Mozilla/5.0",
+      "IpAddress": "127.0.0.1",
+      "UserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+      "IsNewDevice": true
+    }
+  ],
+  "Devices": [
+    {
+      "Id": "e9d1a8f6-bb46-42e0-b391-63fd292c88a9",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "DeviceId": "753353285ea14211a9d0fd2c3d3ca26a",
+      "DeviceName": "Mozilla/5.0",
+      "FirstSeenUtc": "2026-02-19T20:08:26.493059+00:00",
+      "LastSeenUtc": "2026-02-19T20:08:26.493059+00:00",
+      "Trusted": true
+    },
+    {
+      "Id": "e03dcc0a-77b0-4504-9083-0d7ba5f6db5f",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "DeviceId": "eec8891f20a1438faa47ccdb6c3df712",
+      "DeviceName": "Mozilla/5.0",
+      "FirstSeenUtc": "2026-02-25T17:12:24.947449+00:00",
+      "LastSeenUtc": "2026-02-25T17:12:24.947449+00:00",
+      "Trusted": true
+    },
+    {
+      "Id": "77b4f2c8-00f2-4570-8ea9-94b04cea1863",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "DeviceId": "d6f30c815d6b4d70b70653c3a6729623",
+      "DeviceName": "Mozilla/5.0",
+      "FirstSeenUtc": "2026-02-25T20:35:10.833265+00:00",
+      "LastSeenUtc": "2026-02-25T20:35:10.833265+00:00",
+      "Trusted": true
+    },
+    {
+      "Id": "cd68437e-6b0b-4d83-9403-cb9b8a4dd763",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "DeviceId": "d6f30c815d6b4d70b70653c3a6729623",
+      "DeviceName": "Mozilla/5.0",
+      "FirstSeenUtc": "2026-02-25T20:39:40.401758+00:00",
+      "LastSeenUtc": "2026-02-25T20:39:40.401758+00:00",
+      "Trusted": true
+    },
+    {
+      "Id": "87fab079-0e03-4af6-ae12-51e937519263",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "DeviceId": "e9343e48217341778cd986b38f8a1706",
+      "DeviceName": "Mozilla/5.0",
+      "FirstSeenUtc": "2026-02-28T01:38:20.358859+00:00",
+      "LastSeenUtc": "2026-02-28T01:38:20.358859+00:00",
+      "Trusted": true
+    }
+  ],
+  "Disputes": [],
+  "AuditLogs": [
+    {
+      "Id": "955af083-cc36-4b57-8875-8f38b1c2cc1a",
+      "TimestampUtc": "2026-02-19T20:07:28.866637+00:00",
+      "ActorUserId": "eb35106a-34e4-4313-9f32-77d0ea3775ca",
+      "ActorRole": 2,
+      "Action": "seed_data",
+      "EntityType": "system",
+      "EntityId": "bootstrap",
+      "Metadata": "Initial seed completed."
+    },
+    {
+      "Id": "8db5c5bb-d7d2-401c-a40c-da2a6a1b8556",
+      "TimestampUtc": "2026-02-19T20:08:26.516187+00:00",
+      "ActorUserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "ActorRole": 1,
+      "Action": "login_success",
+      "EntityType": "user",
+      "EntityId": "ce1d3b75b41b4e99bba3874d87fb2037",
+      "Metadata": "Device=Mozilla/5.0,Ip=127.0.0.1"
+    },
+    {
+      "Id": "c2b8bf8e-ad0d-44a3-99a5-435c68cec842",
+      "TimestampUtc": "2026-02-25T17:11:53.009999+00:00",
+      "ActorUserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "ActorRole": 1,
+      "Action": "signup",
+      "EntityType": "user",
+      "EntityId": "b0a0b6803b2a4018a233c84ef708dfdc",
+      "Metadata": "New signup"
+    },
+    {
+      "Id": "62f4069c-8821-4c4f-8f29-eff838452754",
+      "TimestampUtc": "2026-02-25T17:12:24.95696+00:00",
+      "ActorUserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "ActorRole": 1,
+      "Action": "login_success",
+      "EntityType": "user",
+      "EntityId": "b0a0b6803b2a4018a233c84ef708dfdc",
+      "Metadata": "Device=Mozilla/5.0,Ip=127.0.0.1"
+    },
+    {
+      "Id": "726864c3-a0dd-4c17-be09-dc2d28a05145",
+      "TimestampUtc": "2026-02-25T17:13:13.833877+00:00",
+      "ActorUserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "ActorRole": 1,
+      "Action": "save_budget",
+      "EntityType": "budget",
+      "EntityId": "Travel",
+      "Metadata": "Limit=100"
+    },
+    {
+      "Id": "924ff3e3-7d64-4bda-a5a9-b8dad53eee9f",
+      "TimestampUtc": "2026-02-25T17:13:44.784498+00:00",
+      "ActorUserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "ActorRole": 1,
+      "Action": "freeze_account",
+      "EntityType": "account",
+      "EntityId": "b29f5096f03841718d9cca5efcddc5ae",
+      "Metadata": "Status=Frozen"
+    },
+    {
+      "Id": "59dfd06a-4b88-4aa7-b5d5-6836dbc5edc1",
+      "TimestampUtc": "2026-02-25T20:34:55.034062+00:00",
+      "ActorUserId": "4c043515-5044-42fd-8768-53c8392580f9",
+      "ActorRole": 1,
+      "Action": "signup",
+      "EntityType": "user",
+      "EntityId": "4c043515504442fd876853c8392580f9",
+      "Metadata": "New signup"
+    },
+    {
+      "Id": "fcf9f4ba-f28e-4202-9e61-88cbdbe570b3",
+      "TimestampUtc": "2026-02-25T20:35:10.836615+00:00",
+      "ActorUserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "ActorRole": 1,
+      "Action": "login_success",
+      "EntityType": "user",
+      "EntityId": "b0a0b6803b2a4018a233c84ef708dfdc",
+      "Metadata": "Device=Mozilla/5.0,Ip=127.0.0.1"
+    },
+    {
+      "Id": "26490aec-8f29-44d4-b87e-55e248aac96d",
+      "TimestampUtc": "2026-02-25T20:36:03.242235+00:00",
+      "ActorUserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "ActorRole": 1,
+      "Action": "unfreeze_account",
+      "EntityType": "account",
+      "EntityId": "b29f5096f03841718d9cca5efcddc5ae",
+      "Metadata": "Status=Active"
+    },
+    {
+      "Id": "b3b3c809-fa15-4586-ad79-30ed38d21576",
+      "TimestampUtc": "2026-02-25T20:36:18.945504+00:00",
+      "ActorUserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "ActorRole": 1,
+      "Action": "create_internal_transfer",
+      "EntityType": "transfer",
+      "EntityId": "80f7e888ea514989a13aae6dc62d0d9e",
+      "Metadata": "Amount=1"
+    },
+    {
+      "Id": "79ab088a-c901-446b-9748-9e40944dd681",
+      "TimestampUtc": "2026-02-25T20:38:29.743493+00:00",
+      "ActorUserId": "66238c61-8f0d-4e24-a5eb-217a20583ff8",
+      "ActorRole": 1,
+      "Action": "signup",
+      "EntityType": "user",
+      "EntityId": "66238c618f0d4e24a5eb217a20583ff8",
+      "Metadata": "New signup"
+    },
+    {
+      "Id": "4ffa1eb0-8171-4910-adf6-b6112cc5fe01",
+      "TimestampUtc": "2026-02-25T20:39:16.939442+00:00",
+      "ActorUserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "ActorRole": 1,
+      "Action": "signup",
+      "EntityType": "user",
+      "EntityId": "46438361c5c34380b5443179750827c6",
+      "Metadata": "New signup"
+    },
+    {
+      "Id": "12906026-de69-44c0-bbb9-48f1cc59c28f",
+      "TimestampUtc": "2026-02-25T20:39:40.402215+00:00",
+      "ActorUserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "ActorRole": 1,
+      "Action": "login_success",
+      "EntityType": "user",
+      "EntityId": "46438361c5c34380b5443179750827c6",
+      "Metadata": "Device=Mozilla/5.0,Ip=127.0.0.1"
+    },
+    {
+      "Id": "c8ec16a7-4e02-43f5-b1e3-2b3cac819dfd",
+      "TimestampUtc": "2026-02-25T21:07:30.467249+00:00",
+      "ActorUserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "ActorRole": 1,
+      "Action": "create_internal_transfer",
+      "EntityType": "transfer",
+      "EntityId": "536ee4ee429741ea9511b5d8bdaf6224",
+      "Metadata": "Amount=1"
+    },
+    {
+      "Id": "4b490f12-0a80-4508-85e7-f34e09a218d2",
+      "TimestampUtc": "2026-02-28T01:37:42.611593+00:00",
+      "ActorUserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "ActorRole": 1,
+      "Action": "login_challenge",
+      "EntityType": "user",
+      "EntityId": "b0a0b6803b2a4018a233c84ef708dfdc",
+      "Metadata": "email MFA requested from Mozilla/5.0"
+    },
+    {
+      "Id": "40639d2a-e79e-4a11-beac-41e815547e55",
+      "TimestampUtc": "2026-02-28T01:38:20.367934+00:00",
+      "ActorUserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "ActorRole": 1,
+      "Action": "login_success",
+      "EntityType": "user",
+      "EntityId": "b0a0b6803b2a4018a233c84ef708dfdc",
+      "Metadata": "Device=Mozilla/5.0,Ip=127.0.0.1"
+    }
+  ],
+  "MfaChallenges": [],
+  "Statements": [
+    {
+      "Id": "3a2dfcb0-b15d-4ad4-b5c3-b1e79d66951e",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "AccountId": "104a355a-c17f-42db-a6f7-b51a28d1e72a",
+      "Year": 2026,
+      "Month": 2,
+      "GeneratedUtc": "2026-02-19T20:07:28.908919+00:00",
+      "PdfFileName": "statement-2026-02-****9701.pdf",
+      "CsvFileName": "statement-2026-02-****9701.csv"
+    },
+    {
+      "Id": "22c86219-02da-464e-a61e-ddfbb4e0e149",
+      "UserId": "ce1d3b75-b41b-4e99-bba3-874d87fb2037",
+      "AccountId": "6bab6a85-243e-4266-be51-f00d42b0e731",
+      "Year": 2026,
+      "Month": 2,
+      "GeneratedUtc": "2026-02-19T20:07:28.909324+00:00",
+      "PdfFileName": "statement-2026-02-****6539.pdf",
+      "CsvFileName": "statement-2026-02-****6539.csv"
+    },
+    {
+      "Id": "a9f46163-84bb-433f-851b-6ce3a4ff9167",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "AccountId": "b4e706ab-ccb4-4147-9669-211419b82d05",
+      "Year": 2026,
+      "Month": 2,
+      "GeneratedUtc": "2026-02-25T17:11:59.71409+00:00",
+      "PdfFileName": "statement-2026-02-****4179.pdf",
+      "CsvFileName": "statement-2026-02-****4179.csv"
+    },
+    {
+      "Id": "d54bb93b-c01f-4f95-9722-f4d93d2c44a5",
+      "UserId": "b0a0b680-3b2a-4018-a233-c84ef708dfdc",
+      "AccountId": "b29f5096-f038-4171-8d9c-ca5efcddc5ae",
+      "Year": 2026,
+      "Month": 2,
+      "GeneratedUtc": "2026-02-25T17:11:59.714285+00:00",
+      "PdfFileName": "statement-2026-02-****6095.pdf",
+      "CsvFileName": "statement-2026-02-****6095.csv"
+    },
+    {
+      "Id": "8262e08a-ea12-4fd4-9287-8e4823ea4c05",
+      "UserId": "4c043515-5044-42fd-8768-53c8392580f9",
+      "AccountId": "7904e35c-fbc8-4578-ad58-228db4180b66",
+      "Year": 2026,
+      "Month": 2,
+      "GeneratedUtc": "2026-02-25T20:35:07.064082+00:00",
+      "PdfFileName": "statement-2026-02-****3167.pdf",
+      "CsvFileName": "statement-2026-02-****3167.csv"
+    },
+    {
+      "Id": "faf39343-d281-4272-a136-0ea3ad982846",
+      "UserId": "4c043515-5044-42fd-8768-53c8392580f9",
+      "AccountId": "f332863f-9044-419c-ad33-4004f0c3ee88",
+      "Year": 2026,
+      "Month": 2,
+      "GeneratedUtc": "2026-02-25T20:35:07.064707+00:00",
+      "PdfFileName": "statement-2026-02-****2559.pdf",
+      "CsvFileName": "statement-2026-02-****2559.csv"
+    },
+    {
+      "Id": "3b0cd453-7d2d-4e23-b60a-b54782127f74",
+      "UserId": "66238c61-8f0d-4e24-a5eb-217a20583ff8",
+      "AccountId": "1611c020-c59c-4ea1-bc09-af14bb4c1f40",
+      "Year": 2026,
+      "Month": 2,
+      "GeneratedUtc": "2026-02-25T20:38:47.106457+00:00",
+      "PdfFileName": "statement-2026-02-****5462.pdf",
+      "CsvFileName": "statement-2026-02-****5462.csv"
+    },
+    {
+      "Id": "d5f46d7b-255c-4004-8759-ab03fdebf77b",
+      "UserId": "66238c61-8f0d-4e24-a5eb-217a20583ff8",
+      "AccountId": "faa1145c-c4b4-4525-92a8-9fd6efbce876",
+      "Year": 2026,
+      "Month": 2,
+      "GeneratedUtc": "2026-02-25T20:38:47.106495+00:00",
+      "PdfFileName": "statement-2026-02-****8664.pdf",
+      "CsvFileName": "statement-2026-02-****8664.csv"
+    },
+    {
+      "Id": "70232d7d-97d9-41fc-8126-b7096e7c1737",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "AccountId": "371954b9-59e0-4cc3-b33f-157a80e1fba6",
+      "Year": 2026,
+      "Month": 2,
+      "GeneratedUtc": "2026-02-25T20:39:27.115052+00:00",
+      "PdfFileName": "statement-2026-02-****5507.pdf",
+      "CsvFileName": "statement-2026-02-****5507.csv"
+    },
+    {
+      "Id": "bc477fba-03c7-4554-b458-674563c6f840",
+      "UserId": "46438361-c5c3-4380-b544-3179750827c6",
+      "AccountId": "76ee64b7-3ea8-4416-8ff8-98c28c717e33",
+      "Year": 2026,
+      "Month": 2,
+      "GeneratedUtc": "2026-02-25T20:39:27.115148+00:00",
+      "PdfFileName": "statement-2026-02-****0013.pdf",
+      "CsvFileName": "statement-2026-02-****0013.csv"
+    }
+  ],
+  "IdempotencyKeys": []
+}

@@ -1,0 +1,378 @@
+@page
+@using AtmMachine.WebUI.Banking.Models
+@model AtmMachine.WebUI.Pages.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@if (Model.Snapshot is null)
+{
+    <section class="panel">
+        <p>Session unavailable. Please <a asp-page="/Login">sign in</a>.</p>
+    </section>
+    return;
+}
+
+<section class="dashboard-head reveal">
+    <div>
+        <p class="eyebrow">Welcome back</p>
+        <h1>@Model.Snapshot.User.FirstName @Model.Snapshot.User.LastName</h1>
+        <p class="muted">@Model.Snapshot.User.Email</p>
+    </div>
+    <div class="header-actions">
+        <form method="get" class="period-form">
+            <label>
+                <span>Window</span>
+                <select asp-for="Days" onchange="this.form.submit()">
+                    <option value="7">Last 7 days</option>
+                    <option value="30">Last 30 days</option>
+                    <option value="90">Last 90 days</option>
+                    <option value="365">Last 12 months</option>
+                </select>
+            </label>
+            <label>
+                <span>Account</span>
+                <select asp-for="AccountId" onchange="this.form.submit()">
+                    @foreach (BankAccount account in Model.Snapshot.Accounts)
+                    {
+                        <option value="@account.Id">@account.Nickname (@account.Type)</option>
+                    }
+                </select>
+            </label>
+        </form>
+        @if (Model.IsAdmin)
+        {
+            <a asp-page="/Admin" class="btn btn-ghost">Admin Console</a>
+        }
+    </div>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="banner success">@Model.SuccessMessage</div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="banner error">@Model.ErrorMessage</div>
+}
+
+<section class="accounts-grid reveal">
+    <article class="account-card">
+        <p class="card-label">Total balance</p>
+        <h2 data-total-balance>@Model.Snapshot.TotalBalance.ToString("C")</h2>
+        <div class="card-meta">
+            @if (Model.ActiveAccount is not null)
+            {
+                <p>@Model.ActiveAccount.Nickname • @Model.ActiveAccount.Type</p>
+                <p><span data-account-available="@Model.ActiveAccount.Id.ToString("N")">@Model.ActiveAccount.AvailableBalance.ToString("C")</span> available</p>
+                <p>@Model.ActiveAccount.Status</p>
+            }
+        </div>
+    </article>
+
+    <article class="metric-card">
+        <p>Inflow (month)</p>
+        <h3 class="positive">@Model.Snapshot.InflowThisMonth.ToString("C")</h3>
+    </article>
+    <article class="metric-card">
+        <p>Outflow (month)</p>
+        <h3 class="negative">@Model.Snapshot.OutflowThisMonth.ToString("C")</h3>
+    </article>
+    <article class="metric-card">
+        <p>Month vs last</p>
+        <h3 class="@(Model.Snapshot.OutflowThisMonth <= Model.Snapshot.OutflowLastMonth ? "positive" : "negative")">
+            @((Model.Snapshot.OutflowThisMonth - Model.Snapshot.OutflowLastMonth).ToString("C"))
+        </h3>
+    </article>
+</section>
+
+<section class="split-page">
+    <article class="panel reveal">
+        <div class="section-head">
+            <h3>Quick Cash In</h3>
+            <span>Get money</span>
+        </div>
+        <form method="post" asp-page-handler="AddFunds" class="stack">
+            <input type="hidden" name="days" value="@Model.Days" />
+            <input type="hidden" name="selectedAccountId" value="@Model.AccountId" />
+            <label class="field">
+                <span>Account</span>
+                <select name="accountId" required>
+                    @foreach (BankAccount account in Model.Snapshot.Accounts.Where(account => account.Type != BankAccountType.ExternalLinked))
+                    {
+                        <option value="@account.Id">@account.Nickname</option>
+                    }
+                </select>
+            </label>
+            <label class="field">
+                <span>Amount</span>
+                <input name="amount" type="number" min="0.01" step="0.01" required />
+            </label>
+            <label class="field">
+                <span>Source</span>
+                <input name="source" placeholder="Freelance Payment" required />
+            </label>
+            <label class="field">
+                <span>Note</span>
+                <input name="note" placeholder="Optional receipt note" />
+            </label>
+            <button type="submit" class="btn btn-primary">Add Funds</button>
+        </form>
+    </article>
+
+    <article class="panel reveal">
+        <div class="section-head">
+            <h3>Quick Cash Out</h3>
+            <span>Lose money</span>
+        </div>
+        <form method="post" asp-page-handler="SpendFunds" class="stack">
+            <input type="hidden" name="days" value="@Model.Days" />
+            <input type="hidden" name="selectedAccountId" value="@Model.AccountId" />
+            <label class="field">
+                <span>Account</span>
+                <select name="accountId" required>
+                    @foreach (BankAccount account in Model.Snapshot.Accounts.Where(account => account.Type != BankAccountType.ExternalLinked))
+                    {
+                        <option value="@account.Id">@account.Nickname</option>
+                    }
+                </select>
+            </label>
+            <label class="field">
+                <span>Amount</span>
+                <input name="amount" type="number" min="0.01" step="0.01" required />
+            </label>
+            <label class="field">
+                <span>Merchant</span>
+                <input name="merchantName" placeholder="Coffee Shop" required />
+            </label>
+            <label class="field">
+                <span>Category</span>
+                <input name="category" placeholder="Dining" required />
+            </label>
+            <label class="field">
+                <span>Note</span>
+                <input name="note" placeholder="Optional note" />
+            </label>
+            <button type="submit" class="btn btn-warning">Post Expense</button>
+        </form>
+    </article>
+</section>
+
+<section class="split-page">
+    <article class="panel reveal">
+        <div class="section-head">
+            <h3>Spending Analytics</h3>
+            <span>@Model.Snapshot.DaysWindow day window</span>
+        </div>
+        @if (Model.Snapshot.CategorySpending.Count == 0)
+        {
+            <p class="muted">No spend categories yet.</p>
+        }
+        else
+        {
+            <div class="chart-list">
+                @{
+                    decimal maxCategory = Model.Snapshot.CategorySpending.Max(item => item.Amount);
+                }
+                @foreach (CategorySpendItem item in Model.Snapshot.CategorySpending.Take(8))
+                {
+                    decimal pct = maxCategory <= 0m ? 0m : decimal.Round((item.Amount / maxCategory) * 100m, 1);
+                    <div class="bar-row">
+                        <div class="bar-meta">
+                            <strong>@item.Category</strong>
+                            <span>@item.Amount.ToString("C")</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width:@pct%"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </article>
+
+    <article class="panel reveal">
+        <div class="section-head">
+            <h3>Budgets</h3>
+            <span>@Model.Snapshot.BudgetProgress.Count</span>
+        </div>
+        @if (Model.Snapshot.BudgetProgress.Count == 0)
+        {
+            <p class="muted">No budgets configured.</p>
+        }
+        else
+        {
+            @foreach (BudgetProgressItem budget in Model.Snapshot.BudgetProgress)
+            {
+                <div class="budget-row">
+                    <div class="bar-meta">
+                        <strong>@budget.Category</strong>
+                        <span>@budget.Spent.ToString("C") / @budget.MonthlyLimit.ToString("C")</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill @(budget.PercentUsed > 100m ? "bar-over" : "")" style="width:@Math.Min(100m, budget.PercentUsed)%"></div>
+                    </div>
+                </div>
+            }
+        }
+        <form method="post" asp-page-handler="CreateBudget" class="stack compact">
+            <input type="hidden" name="days" value="@Model.Days" />
+            <input type="hidden" name="accountId" value="@Model.AccountId" />
+            <label class="field">
+                <span>Category</span>
+                <input name="category" placeholder="Travel" required />
+            </label>
+            <label class="field">
+                <span>Monthly limit</span>
+                <input name="monthlyLimit" type="number" step="0.01" min="1" placeholder="500" required />
+            </label>
+            <button type="submit" class="btn btn-primary">Save Budget</button>
+        </form>
+    </article>
+</section>
+
+<section class="split-page">
+    <article class="panel reveal">
+        <div class="section-head">
+            <h3>Savings Goals</h3>
+            <span>@Model.Snapshot.Goals.Count</span>
+        </div>
+        @if (Model.Snapshot.Goals.Count == 0)
+        {
+            <p class="muted">No goals yet.</p>
+        }
+        else
+        {
+            @foreach (SavingsGoalProgressItem goal in Model.Snapshot.Goals)
+            {
+                <div class="goal-row">
+                    <div class="bar-meta">
+                        <strong>@goal.Name</strong>
+                        <span>@goal.CurrentAmount.ToString("C") / @goal.TargetAmount.ToString("C")</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width:@Math.Min(100m, goal.PercentReached)%"></div>
+                    </div>
+                    <form method="post" asp-page-handler="ContributeGoal" class="goal-contrib">
+                        <input type="hidden" name="days" value="@Model.Days" />
+                        <input type="hidden" name="accountId" value="@Model.AccountId" />
+                        <input type="hidden" name="goalId" value="@goal.GoalId" />
+                        <label>
+                            <span>From account</span>
+                            <select name="sourceAccountId" required>
+                                @foreach (BankAccount source in Model.Snapshot.Accounts.Where(account => account.Type != BankAccountType.ExternalLinked))
+                                {
+                                    <option value="@source.Id">@source.Nickname</option>
+                                }
+                            </select>
+                        </label>
+                        <label>
+                            <span>Amount</span>
+                            <input name="amount" type="number" step="0.01" min="0.01" required />
+                        </label>
+                        <button type="submit" class="btn btn-ghost">Contribute</button>
+                    </form>
+                </div>
+            }
+        }
+        <form method="post" asp-page-handler="CreateGoal" class="stack compact">
+            <input type="hidden" name="days" value="@Model.Days" />
+            <input type="hidden" name="accountId" value="@Model.AccountId" />
+            <label class="field">
+                <span>Goal name</span>
+                <input name="name" placeholder="Vacation Fund" required />
+            </label>
+            <label class="field">
+                <span>Savings account</span>
+                <select name="savingsAccountId" required>
+                    @foreach (BankAccount account in Model.Snapshot.Accounts.Where(account => account.Type == BankAccountType.Savings))
+                    {
+                        <option value="@account.Id">@account.Nickname</option>
+                    }
+                </select>
+            </label>
+            <label class="field">
+                <span>Target amount</span>
+                <input name="targetAmount" type="number" step="0.01" min="1" required />
+            </label>
+            <button type="submit" class="btn btn-primary">Create Goal</button>
+        </form>
+    </article>
+
+    <article class="panel reveal">
+        <div class="section-head">
+            <h3>Notification Center</h3>
+            <span>@Model.Snapshot.Notifications.Count</span>
+        </div>
+        @if (Model.Snapshot.Notifications.Count == 0)
+        {
+            <p class="muted">No notifications yet.</p>
+        }
+        else
+        {
+            <ul class="activity-list">
+                @foreach (NotificationItem notice in Model.Snapshot.Notifications.Take(12))
+                {
+                    <li>
+                        <div>
+                            <p class="activity-title">@notice.Message</p>
+                            <p class="activity-subtitle">@notice.CreatedUtc.ToLocalTime().ToString("MMM dd, yyyy h:mm tt")</p>
+                        </div>
+                        @if (!notice.IsRead)
+                        {
+                            <form method="post" asp-page-handler="MarkRead">
+                                <input type="hidden" name="days" value="@Model.Days" />
+                                <input type="hidden" name="accountId" value="@Model.AccountId" />
+                                <input type="hidden" name="notificationId" value="@notice.Id" />
+                                <button type="submit" class="btn btn-outline">Mark read</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="pill pill-in">Read</span>
+                        }
+                    </li>
+                }
+            </ul>
+        }
+    </article>
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Upcoming Scheduled Transfers</h3>
+        <a class="btn btn-ghost" asp-page="/Transfers">Manage Transfers</a>
+    </div>
+    @if (Model.Snapshot.UpcomingTransfers.Count == 0)
+    {
+        <p class="muted">No scheduled transfers.</p>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Next Run</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                        <th>Frequency</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (BankTransfer transfer in Model.Snapshot.UpcomingTransfers)
+                    {
+                        <tr>
+                            <td>@(transfer.NextRunUtc?.ToLocalTime().ToString("yyyy-MM-dd HH:mm") ?? "-")</td>
+                            <td>@transfer.Amount.ToString("C")</td>
+                            <td>@(transfer.IsExternalAch ? "External ACH" : "Internal")</td>
+                            <td>@transfer.Frequency</td>
+                            <td>@transfer.State</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

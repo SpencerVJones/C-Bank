@@ -1,6 +1,0 @@
-/Users/spencerjones/Desktop/Coding/Projects/C#/AtmMachine/AtmMachine/bin/Debug/AtmMachine.exe
-/Users/spencerjones/Desktop/Coding/Projects/C#/AtmMachine/AtmMachine/bin/Debug/AtmMachine.pdb
-/Users/spencerjones/Desktop/Coding/Projects/C#/AtmMachine/AtmMachine/obj/Debug/AtmMachine.csproj.AssemblyReference.cache
-/Users/spencerjones/Desktop/Coding/Projects/C#/AtmMachine/AtmMachine/obj/Debug/AtmMachine.csproj.CoreCompileInputs.cache
-/Users/spencerjones/Desktop/Coding/Projects/C#/AtmMachine/AtmMachine/obj/Debug/AtmMachine.exe
-/Users/spencerjones/Desktop/Coding/Projects/C#/AtmMachine/AtmMachine/obj/Debug/AtmMachine.pdb

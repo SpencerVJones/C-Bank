@@ -1,0 +1,132 @@
+@page
+@model AtmMachine.WebUI.Pages.AccountsModel
+@{
+    ViewData["Title"] = "Accounts";
+}
+
+@if (Model.Snapshot is null)
+{
+    <section class="panel"><p>Session unavailable.</p></section>
+    return;
+}
+
+<section class="dashboard-head reveal">
+    <div>
+        <p class="eyebrow">Accounts</p>
+        <h1>Checking and savings</h1>
+        <p class="muted">Account status, balances, routing, and security controls.</p>
+    </div>
+    <form method="get" class="period-form">
+        <label>
+            <span>Account switcher</span>
+            <select asp-for="AccountId" onchange="this.form.submit()">
+                @foreach (BankAccount account in Model.Snapshot.Accounts)
+                {
+                    <option value="@account.Id">@account.Nickname (@account.Type)</option>
+                }
+            </select>
+        </label>
+    </form>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="banner success">@Model.SuccessMessage</div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="banner error">@Model.ErrorMessage</div>
+}
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>All Accounts</h3>
+        <span>@Model.Snapshot.Accounts.Count total</span>
+    </div>
+    <div class="account-list-grid">
+        @foreach (BankAccount account in Model.Snapshot.Accounts)
+        {
+            string masked = account.AccountNumber.Length <= 4 ? $"****{account.AccountNumber}" : $"*****{account.AccountNumber[^4..]}";
+            <article class="account-tile @(account.Status == BankAccountStatus.Frozen ? "frozen" : "active")">
+                <p class="card-label">@account.Type</p>
+                <h3>@account.Nickname</h3>
+                <p class="muted">Account @masked</p>
+                <p class="muted">Routing @account.RoutingNumber</p>
+                <p><strong>Available:</strong> <span data-account-available="@account.Id.ToString("N")">@account.AvailableBalance.ToString("C")</span></p>
+                <p><strong>Ledger:</strong> <span data-account-ledger="@account.Id.ToString("N")">@account.LedgerBalance.ToString("C")</span></p>
+                <p>
+                    <span class="pill @(account.Status == BankAccountStatus.Active ? "pill-in" : "pill-out")">@account.Status</span>
+                </p>
+                <div class="actions-inline">
+                    <a asp-page="/Accounts" asp-route-accountId="@account.Id" class="btn btn-outline">View</a>
+                    <form method="post" asp-page-handler="ToggleFreeze">
+                        <input type="hidden" name="accountId" value="@account.Id" />
+                        <input type="hidden" name="freeze" value="@(account.Status == BankAccountStatus.Active ? "true" : "false")" />
+                        <button type="submit" class="btn @(account.Status == BankAccountStatus.Active ? "btn-warning" : "btn-primary")">
+                            @(account.Status == BankAccountStatus.Active ? "Freeze" : "Unfreeze")
+                        </button>
+                    </form>
+                </div>
+            </article>
+        }
+    </div>
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Open New Account / Add Card</h3>
+        <span>Create additional checking or savings accounts</span>
+    </div>
+    <form method="post" asp-page-handler="OpenAccount" class="stack">
+        <input type="hidden" name="selectedAccountId" value="@Model.AccountId" />
+        <label class="field">
+            <span>Account type</span>
+            <select name="accountType" required>
+                <option value="Checking">Checking</option>
+                <option value="Savings">Savings</option>
+            </select>
+        </label>
+        <label class="field">
+            <span>Nickname</span>
+            <input name="nickname" maxlength="48" placeholder="Travel Card" required />
+        </label>
+        <label class="field">
+            <span>Opening deposit</span>
+            <input name="openingDeposit" type="number" min="0" step="0.01" value="0.00" required />
+        </label>
+        <label class="field">
+            <span>Funding source (required if deposit &gt; 0)</span>
+            <select name="fundingSourceAccountId">
+                <option value="">No initial funding</option>
+                @foreach (BankAccount account in Model.Snapshot.Accounts.Where(account => account.Type != BankAccountType.ExternalLinked))
+                {
+                    <option value="@account.Id">@account.Nickname (@account.Type)</option>
+                }
+            </select>
+        </label>
+        <button type="submit" class="btn btn-primary">Open Account</button>
+    </form>
+</section>
+
+@if (Model.SelectedAccount is not null)
+{
+    string selectedMasked = Model.SelectedAccount.AccountNumber.Length <= 4
+        ? $"****{Model.SelectedAccount.AccountNumber}"
+        : $"*****{Model.SelectedAccount.AccountNumber[^4..]}";
+    <section class="panel reveal">
+        <div class="section-head">
+            <h3>Account Detail</h3>
+            <span>@Model.SelectedAccount.Nickname</span>
+        </div>
+        <div class="detail-grid">
+            <p><strong>Type:</strong> @Model.SelectedAccount.Type</p>
+            <p><strong>Status:</strong> @Model.SelectedAccount.Status</p>
+            <p><strong>Account number:</strong> @selectedMasked</p>
+            <p><strong>Routing number:</strong> @Model.SelectedAccount.RoutingNumber</p>
+            <p><strong>Available balance:</strong> <span data-account-available="@Model.SelectedAccount.Id.ToString("N")">@Model.SelectedAccount.AvailableBalance.ToString("C")</span></p>
+            <p><strong>Ledger balance:</strong> <span data-account-ledger="@Model.SelectedAccount.Id.ToString("N")">@Model.SelectedAccount.LedgerBalance.ToString("C")</span></p>
+            <p><strong>Opened:</strong> @Model.SelectedAccount.CreatedUtc.ToLocalTime().ToString("yyyy-MM-dd")</p>
+            <p><strong>Transactions:</strong> <a asp-page="/Transactions" asp-route-accountId="@Model.SelectedAccount.Id">View ledger</a></p>
+        </div>
+    </section>
+}

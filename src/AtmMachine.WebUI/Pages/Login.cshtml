@@ -1,0 +1,41 @@
+@page
+@model AtmMachine.WebUI.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="panel auth-panel reveal">
+    <div class="panel-head">
+        <p class="eyebrow">Digital Banking</p>
+        <h1>Sign in to your account</h1>
+        <p class="muted">Email + password required.</p>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+    {
+        <div class="banner success">@Model.SuccessMessage</div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <div class="banner error">@Model.ErrorMessage</div>
+    }
+
+    <form method="post" class="stack">
+        <label class="field">
+            <span>Email</span>
+            <input asp-for="Email" type="email" autocomplete="username" placeholder="you@example.com" required />
+        </label>
+
+        <label class="field">
+            <span>Password</span>
+            <input asp-for="Password" type="password" autocomplete="current-password" placeholder="••••••••" required />
+        </label>
+
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+
+    <p class="auth-footer">
+        New customer?
+        <a asp-page="/Signup">Create an account</a>
+    </p>
+</section>

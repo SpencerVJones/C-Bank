@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: consoleatm-webui
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: Banking__Provider
+        value: neon
+      - key: Banking__Firebase__Enabled
+        value: "false"
+      - key: Banking__Postgres__StateKey
+        value: bank_state
+      - key: Banking__Security__JwtSigningKey
+        generateValue: true
+      - key: NEON_DATABASE_URL
+        sync: false

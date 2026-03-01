@@ -1,0 +1,87 @@
+@{
+    string currentPath = Context.Request.Path.Value ?? "/";
+    bool isAuthenticated = Context.Session.GetCurrentUserId().HasValue;
+    bool isAdmin = Context.Session.GetCurrentUserRole() == UserRole.Admin;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ConsoleATM</title>
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem("consoleatm.theme");
+                var theme = (saved === "dark" || saved === "light")
+                    ? saved
+                    : ((window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light");
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (error) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        }());
+    </script>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body data-authenticated="@(isAuthenticated ? "true" : "false")" data-admin="@(isAdmin ? "true" : "false")">
+    <div class="app-shell @(isAuthenticated ? "with-sidebar" : "single-column")">
+        @if (isAuthenticated)
+        {
+            <aside class="sidebar reveal">
+                <a asp-page="/Dashboard" class="brand sidebar-brand">
+                    <span class="brand-chip">BANK</span>
+                    <span>ConsoleATM</span>
+                </a>
+                <nav class="sidebar-nav">
+                    <a asp-page="/Dashboard" class="sidebar-link @(currentPath.StartsWith("/Dashboard", System.StringComparison.OrdinalIgnoreCase) ? "active" : "")">Dashboard</a>
+                    <a asp-page="/Accounts" class="sidebar-link @(currentPath.StartsWith("/Accounts", System.StringComparison.OrdinalIgnoreCase) ? "active" : "")">Accounts</a>
+                    <a asp-page="/Transactions" class="sidebar-link @(currentPath.StartsWith("/Transactions", System.StringComparison.OrdinalIgnoreCase) ? "active" : "")">Transactions</a>
+                    <a asp-page="/Transfers" class="sidebar-link @(currentPath.StartsWith("/Transfers", System.StringComparison.OrdinalIgnoreCase) ? "active" : "")">Transfers</a>
+                    <a asp-page="/Bills" class="sidebar-link @(currentPath.StartsWith("/Bills", System.StringComparison.OrdinalIgnoreCase) ? "active" : "")">Bills</a>
+                    <a asp-page="/Statements" class="sidebar-link @(currentPath.StartsWith("/Statements", System.StringComparison.OrdinalIgnoreCase) ? "active" : "")">Statements</a>
+                    <a asp-page="/Disputes" class="sidebar-link @(currentPath.StartsWith("/Disputes", System.StringComparison.OrdinalIgnoreCase) ? "active" : "")">Disputes</a>
+                    <a asp-page="/Settings" class="sidebar-link @(currentPath.StartsWith("/Settings", System.StringComparison.OrdinalIgnoreCase) ? "active" : "")">Settings</a>
+                    @if (isAdmin)
+                    {
+                        <a asp-page="/Admin" class="sidebar-link @(currentPath.StartsWith("/Admin", System.StringComparison.OrdinalIgnoreCase) ? "active" : "")">Admin Console</a>
+                    }
+                </nav>
+            </aside>
+        }
+
+        <main class="shell">
+            <header class="topbar reveal">
+                <a asp-page="/Dashboard" class="brand">
+                    <span class="brand-chip">BANK</span>
+                    <span>Digital Banking</span>
+                </a>
+                <div class="topbar-actions">
+                    <button type="button" id="theme-toggle" class="btn btn-outline theme-toggle" aria-pressed="false">
+                        Dark mode
+                    </button>
+                    @if (isAuthenticated)
+                    {
+                        <span class="status-pill" id="realtime-status">Secure Session</span>
+                        <form method="post" asp-page="/Logout">
+                            <button type="submit" class="btn btn-outline">Sign out</button>
+                        </form>
+                    }
+                </div>
+            </header>
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/js/theme.js"></script>
+    @if (isAuthenticated)
+    {
+        <div id="live-feed" class="live-feed" aria-live="polite" aria-atomic="true"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+        <script src="~/js/realtime.js"></script>
+    }
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

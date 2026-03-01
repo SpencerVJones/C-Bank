@@ -1,0 +1,53 @@
+@page
+@model AtmMachine.WebUI.Pages.SignupModel
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<section class="panel auth-panel reveal">
+    <div class="panel-head">
+        <p class="eyebrow">Open Account</p>
+        <h1>Create your profile</h1>
+        <p class="muted">Checking + savings accounts are created automatically.</p>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Message))
+    {
+        <div class="banner @(Model.IsSuccess ? "success" : "error")">@Model.Message</div>
+    }
+
+    <form method="post" class="stack">
+        <div class="split-2">
+            <label class="field">
+                <span>First Name</span>
+                <input asp-for="FirstName" required />
+            </label>
+            <label class="field">
+                <span>Last Name</span>
+                <input asp-for="LastName" required />
+            </label>
+        </div>
+        <label class="field">
+            <span>Email</span>
+            <input asp-for="Email" type="email" required />
+        </label>
+        <label class="field">
+            <span>Password</span>
+            <input asp-for="Password" type="password" minlength="8" required />
+        </label>
+        <label class="field">
+            <span>Address</span>
+            <input asp-for="Address" />
+        </label>
+        <label class="field">
+            <span>Phone</span>
+            <input asp-for="Phone" />
+        </label>
+        <button type="submit" class="btn btn-primary">Create Account</button>
+    </form>
+
+    <p class="auth-footer">
+        Already signed up?
+        <a asp-page="/Login">Sign in</a>
+    </p>
+</section>

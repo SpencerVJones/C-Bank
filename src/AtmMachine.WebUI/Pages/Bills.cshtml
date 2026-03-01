@@ -1,0 +1,78 @@
+@page
+@model AtmMachine.WebUI.Pages.BillsModel
+@{
+    ViewData["Title"] = "Bills";
+}
+
+@if (Model.Snapshot is null)
+{
+    <section class="panel"><p>Session unavailable.</p></section>
+    return;
+}
+
+<section class="dashboard-head reveal">
+    <div>
+        <p class="eyebrow">Bills</p>
+        <h1>Bill pay simulation</h1>
+        <p class="muted">External ACH transfers act as bill payments in this sandbox app.</p>
+    </div>
+    <a class="btn btn-primary" asp-page="/Transfers">Create bill payment</a>
+</section>
+
+<section class="accounts-grid reveal">
+    <article class="metric-card">
+        <p>Upcoming bill transfers</p>
+        <h3>@Model.UpcomingBillTransfers.Count</h3>
+    </article>
+    <article class="metric-card">
+        <p>This month outflow</p>
+        <h3 class="negative">@Model.Snapshot.OutflowThisMonth.ToString("C")</h3>
+    </article>
+    <article class="metric-card">
+        <p>Low balance alerts</p>
+        <h3>@Model.Snapshot.Notifications.Count(item => item.Message.Contains("Low balance", System.StringComparison.OrdinalIgnoreCase))</h3>
+    </article>
+    <article class="metric-card">
+        <p>Linked pay-from accounts</p>
+        <h3>@Model.Snapshot.Accounts.Count(account => account.Type != BankAccountType.ExternalLinked)</h3>
+    </article>
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Scheduled Bill Payments</h3>
+        <span>External ACH only</span>
+    </div>
+    @if (Model.UpcomingBillTransfers.Count == 0)
+    {
+        <p class="muted">No scheduled bill payments. Create one from the Transfers page.</p>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Next Run</th>
+                        <th>Amount</th>
+                        <th>Frequency</th>
+                        <th>Status</th>
+                        <th>Memo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (BankTransfer transfer in Model.UpcomingBillTransfers)
+                    {
+                        <tr>
+                            <td>@(transfer.NextRunUtc?.ToLocalTime().ToString("yyyy-MM-dd HH:mm") ?? transfer.ScheduledUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm"))</td>
+                            <td class="negative">@transfer.Amount.ToString("C")</td>
+                            <td>@transfer.Frequency</td>
+                            <td><span class="pill @(transfer.State == TransferState.Posted ? "pill-in" : "pill-out")">@transfer.State</span></td>
+                            <td>@(string.IsNullOrWhiteSpace(transfer.Memo) ? "-" : transfer.Memo)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

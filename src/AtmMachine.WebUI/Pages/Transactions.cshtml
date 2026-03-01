@@ -1,0 +1,117 @@
+@page
+@using AtmMachine.WebUI.Banking.Models
+@model AtmMachine.WebUI.Pages.TransactionsModel
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+@if (Model.Ledger is null)
+{
+    <section class="panel"><p>Unable to load transactions.</p></section>
+    return;
+}
+
+<section class="dashboard-head reveal">
+    <div>
+        <p class="eyebrow">Ledger</p>
+        <h1>Transactions</h1>
+        <p class="muted">Search, filter, and review receipts.</p>
+    </div>
+</section>
+
+<section class="panel reveal">
+    <form method="get" class="filter-grid">
+        <label class="field">
+            <span>Account</span>
+            <select asp-for="AccountId">
+                <option value="">All accounts</option>
+                @foreach (BankAccount account in Model.Ledger.Accounts)
+                {
+                    <option value="@account.Id">@account.Nickname (@account.Type)</option>
+                }
+            </select>
+        </label>
+        <label class="field">
+            <span>Search</span>
+            <input asp-for="Search" placeholder="Merchant, category, reference..." />
+        </label>
+        <label class="field">
+            <span>Category</span>
+            <select asp-for="Category">
+                <option value="">All categories</option>
+                @foreach (string category in Model.Ledger.Categories)
+                {
+                    <option value="@category">@category</option>
+                }
+            </select>
+        </label>
+        <label class="field">
+            <span>Status</span>
+            <select asp-for="State">
+                <option value="">Any</option>
+                <option value="Pending">Pending</option>
+                <option value="Posted">Posted</option>
+            </select>
+        </label>
+        <label class="field">
+            <span>From</span>
+            <input asp-for="FromUtc" type="date" />
+        </label>
+        <label class="field">
+            <span>To</span>
+            <input asp-for="ToUtc" type="date" />
+        </label>
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+    </form>
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Ledger Rows</h3>
+        <span>@Model.Ledger.Transactions.Count result(s)</span>
+    </div>
+    @if (Model.Ledger.Transactions.Count == 0)
+    {
+        <p class="muted">No transactions found for this filter.</p>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Merchant</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Amount</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (BankTransaction transaction in Model.Ledger.Transactions)
+                    {
+                        string merchantInitial = string.IsNullOrWhiteSpace(transaction.MerchantName)
+                            ? "?"
+                            : transaction.MerchantName[0].ToString().ToUpperInvariant();
+                        <tr>
+                            <td>@transaction.CreatedUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>
+                                <a asp-page="/TransactionDetail" asp-route-id="@transaction.Id" class="merchant-cell">
+                                    <span class="merchant-icon">@merchantInitial</span>
+                                    <span>@transaction.MerchantName</span>
+                                </a>
+                            </td>
+                            <td><span class="pill pill-category">@transaction.Category</span></td>
+                            <td>
+                                <span class="pill @(transaction.State == TransactionState.Posted ? "pill-in" : "pill-out")">@transaction.State</span>
+                            </td>
+                            <td class="@(transaction.Amount >= 0 ? "positive" : "negative")">@transaction.Amount.ToString("C")</td>
+                            <td>@transaction.ReferenceCode</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

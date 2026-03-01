@@ -1,0 +1,71 @@
+@page
+@using AtmMachine.WebUI.Banking.Models
+@model AtmMachine.WebUI.Pages.TransactionDetailModel
+@{
+    ViewData["Title"] = "Transaction Detail";
+}
+
+@if (Model.Transaction is null)
+{
+    <section class="panel"><p>Transaction not found.</p></section>
+    return;
+}
+
+<section class="dashboard-head reveal">
+    <div>
+        <p class="eyebrow">Transaction Detail</p>
+        <h1>@Model.Transaction.MerchantName</h1>
+        <p class="muted">Ref @Model.Transaction.ReferenceCode</p>
+    </div>
+    <a class="btn btn-outline" asp-page="/Transactions">Back to Ledger</a>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="banner success">@Model.SuccessMessage</div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="banner error">@Model.ErrorMessage</div>
+}
+
+<section class="split-page">
+    <article class="panel reveal">
+        <h3>Receipt</h3>
+        <div class="detail-grid">
+            <p><strong>Timestamp:</strong> @Model.Transaction.CreatedUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")</p>
+            <p><strong>Status:</strong> @Model.Transaction.State</p>
+            <p><strong>Category:</strong> @Model.Transaction.Category</p>
+            <p><strong>Amount:</strong> <span class="@(Model.Transaction.Amount >= 0 ? "positive" : "negative")">@Model.Transaction.Amount.ToString("C")</span></p>
+            <p><strong>Description:</strong> @Model.Transaction.Description</p>
+            <p><strong>Counterparty:</strong> @Model.Transaction.Counterparty</p>
+            <p><strong>Correlation ID:</strong> @Model.Transaction.CorrelationId</p>
+            <p><strong>Idempotency Key:</strong> @Model.Transaction.IdempotencyKey</p>
+            <p><strong>Created By:</strong> @Model.Transaction.CreatedBy</p>
+        </div>
+    </article>
+    <article class="panel reveal">
+        <h3>Receipt Notes</h3>
+        <form method="post" asp-page-handler="SaveReceipt" asp-route-id="@Model.Id" class="stack">
+            <input type="hidden" asp-for="Id" />
+            <textarea asp-for="ReceiptNote" rows="5" placeholder="Add notes, receipt URL, context..."></textarea>
+            <button type="submit" class="btn btn-primary">Save Notes</button>
+        </form>
+    </article>
+</section>
+
+<section class="panel reveal">
+    <h3>Report a Problem</h3>
+    <form method="post" asp-page-handler="Dispute" asp-route-id="@Model.Id" class="stack">
+        <input type="hidden" asp-for="Id" />
+        <label class="field">
+            <span>Reason</span>
+            <input asp-for="DisputeReason" placeholder="Card charged twice" required />
+        </label>
+        <label class="field">
+            <span>Details</span>
+            <textarea asp-for="DisputeNotes" rows="4" placeholder="Explain what happened"></textarea>
+        </label>
+        <button type="submit" class="btn btn-warning">Create Dispute Ticket</button>
+    </form>
+</section>

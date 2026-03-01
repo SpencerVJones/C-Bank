@@ -1,0 +1,303 @@
+@page
+@model AtmMachine.WebUI.Pages.AdminModel
+@{
+    ViewData["Title"] = "Admin Console";
+}
+
+@if (Model.Snapshot is null)
+{
+    <section class="panel"><p>Admin access required.</p></section>
+    return;
+}
+
+<section class="dashboard-head reveal">
+    <div>
+        <p class="eyebrow">Admin Console</p>
+        <h1>Operations and risk controls</h1>
+        <p class="muted">View users, manage account status, review fraud holds and disputes, and inspect audit history.</p>
+    </div>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="banner success">@Model.SuccessMessage</div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="banner error">@Model.ErrorMessage</div>
+}
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Live Audit Feed</h3>
+        <span>Realtime</span>
+    </div>
+    <ul id="admin-live-audit-feed" class="activity-list compact-feed">
+        <li class="muted">Waiting for live events...</li>
+    </ul>
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Users</h3>
+        <span>@Model.Snapshot.Users.Count</span>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Accounts</th>
+                    <th>Total Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AdminUserView user in Model.Snapshot.Users)
+                {
+                    <tr>
+                        <td>@user.Email</td>
+                        <td>@user.FirstName @user.LastName</td>
+                        <td>@user.Role</td>
+                        <td>@user.AccountCount</td>
+                        <td>@user.TotalBalance.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Accounts & Manual Adjustments</h3>
+        <span>@Model.Snapshot.Accounts.Count</span>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>User</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Balance</th>
+                    <th>Freeze</th>
+                    <th>Manual Adjustment</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AdminAccountView account in Model.Snapshot.Accounts)
+                {
+                    <tr>
+                        <td>@account.Nickname @account.MaskedAccountNumber</td>
+                        <td>@account.UserId.ToString("N")[..8]</td>
+                        <td>@account.Type</td>
+                        <td><span class="pill @(account.Status == BankAccountStatus.Active ? "pill-in" : "pill-out")">@account.Status</span></td>
+                        <td>@account.AvailableBalance.ToString("C")</td>
+                        <td>
+                            <form method="post" asp-page-handler="ToggleFreeze" class="inline-form">
+                                <input type="hidden" name="accountId" value="@account.AccountId" />
+                                <input type="hidden" name="freeze" value="@(account.Status == BankAccountStatus.Active ? "true" : "false")" />
+                                <button type="submit" class="btn @(account.Status == BankAccountStatus.Active ? "btn-warning" : "btn-primary")">
+                                    @(account.Status == BankAccountStatus.Active ? "Freeze" : "Unfreeze")
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" asp-page-handler="ManualAdjustment" class="inline-form">
+                                <input type="hidden" name="accountId" value="@account.AccountId" />
+                                <input name="amount" type="number" step="0.01" placeholder="+10.00 / -10.00" required />
+                                <input name="note" placeholder="Ops note" />
+                                <button type="submit" class="btn btn-outline">Post</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Fraud Review Queue</h3>
+        <span>@Model.Snapshot.FraudTransfers.Count</span>
+    </div>
+    @if (Model.Snapshot.FraudTransfers.Count == 0)
+    {
+        <p class="muted">No transfers currently need review.</p>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Transfer</th>
+                        <th>User</th>
+                        <th>Source</th>
+                        <th>Amount</th>
+                        <th>State</th>
+                        <th>Fraud Score</th>
+                        <th>Flags</th>
+                        <th>Decision</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (AdminFraudTransferView transfer in Model.Snapshot.FraudTransfers)
+                    {
+                        <tr>
+                            <td>@transfer.TransferId.ToString("N")[..10]</td>
+                            <td>@transfer.UserId.ToString("N")[..8]</td>
+                            <td>@transfer.SourceAccountName</td>
+                            <td>@transfer.Amount.ToString("C")</td>
+                            <td><span class="pill @(transfer.State == TransferState.UnderReview ? "pill-out" : "pill-in")">@transfer.State</span></td>
+                            <td>@transfer.FraudScore</td>
+                            <td>@transfer.FraudFlags</td>
+                            <td>
+                                @if (transfer.State == TransferState.UnderReview)
+                                {
+                                    <div class="inline-form">
+                                        <form method="post" asp-page-handler="ReviewTransfer" class="inline-form">
+                                            <input type="hidden" name="transferId" value="@transfer.TransferId" />
+                                            <input type="hidden" name="approve" value="true" />
+                                            <input name="adminNotes" placeholder="Approval note" />
+                                            <button type="submit" class="btn btn-primary">Approve</button>
+                                        </form>
+                                        <form method="post" asp-page-handler="ReviewTransfer" class="inline-form">
+                                            <input type="hidden" name="transferId" value="@transfer.TransferId" />
+                                            <input type="hidden" name="approve" value="false" />
+                                            <input name="adminNotes" placeholder="Rejection note" />
+                                            <button type="submit" class="btn btn-warning">Reject</button>
+                                        </form>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="muted">Reviewed</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Disputes</h3>
+        <span>@Model.Snapshot.Disputes.Count</span>
+    </div>
+    @if (Model.Snapshot.Disputes.Count == 0)
+    {
+        <p class="muted">No disputes submitted.</p>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticket</th>
+                        <th>User</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Review</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DisputeTicket dispute in Model.Snapshot.Disputes)
+                    {
+                        <tr>
+                            <td>@dispute.Id.ToString("N")[..10]</td>
+                            <td>@dispute.UserId.ToString("N")[..8]</td>
+                            <td>@dispute.Reason</td>
+                            <td>@dispute.Status</td>
+                            <td>
+                                <form method="post" asp-page-handler="ReviewDispute" class="inline-form">
+                                    <input type="hidden" name="disputeId" value="@dispute.Id" />
+                                    <select name="status">
+                                        <option value="Open">Open</option>
+                                        <option value="InReview">In Review</option>
+                                        <option value="Resolved">Resolved</option>
+                                        <option value="Rejected">Rejected</option>
+                                    </select>
+                                    <input name="adminNotes" placeholder="Resolution notes" />
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Domain Events</h3>
+        <span>@Model.Snapshot.DomainEvents.Count</span>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Event</th>
+                    <th>Entity</th>
+                    <th>User</th>
+                    <th>Metadata</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AdminDomainEventView entry in Model.Snapshot.DomainEvents.Take(120))
+                {
+                    <tr>
+                        <td>@entry.CreatedUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@entry.EventType</td>
+                        <td>@entry.EntityType @entry.EntityId</td>
+                        <td>@(entry.UserId?.ToString("N")[..8] ?? "n/a")</td>
+                        <td>@entry.Metadata</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Audit Logs</h3>
+        <span>@Model.Snapshot.AuditLogs.Count</span>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Actor</th>
+                    <th>Action</th>
+                    <th>Entity</th>
+                    <th>Metadata</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AuditLogEntry entry in Model.Snapshot.AuditLogs.Take(120))
+                {
+                    <tr>
+                        <td>@entry.TimestampUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@(entry.ActorUserId?.ToString("N")[..8] ?? "system") / @entry.ActorRole</td>
+                        <td>@entry.Action</td>
+                        <td>@entry.EntityType @entry.EntityId</td>
+                        <td>@entry.Metadata</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

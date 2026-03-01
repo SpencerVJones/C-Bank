@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+
+.dotnet/
+.vscode/
+data/accounts.json
+TestResults/
+
+*.user
+*.suo

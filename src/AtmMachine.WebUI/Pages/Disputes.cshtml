@@ -1,0 +1,55 @@
+@page
+@model AtmMachine.WebUI.Pages.DisputesModel
+@{
+    ViewData["Title"] = "Disputes";
+}
+
+<section class="dashboard-head reveal">
+    <div>
+        <p class="eyebrow">Disputes</p>
+        <h1>Report a problem tickets</h1>
+        <p class="muted">Track status and notes for transaction disputes.</p>
+    </div>
+    <a class="btn btn-outline" asp-page="/Transactions">Find transaction</a>
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Open and Historical Tickets</h3>
+        <span>@Model.Disputes.Count</span>
+    </div>
+    @if (Model.Disputes.Count == 0)
+    {
+        <p class="muted">No disputes filed yet. Open a transaction and choose "Report a Problem".</p>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Created</th>
+                        <th>Ticket</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                        <th>Admin Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DisputeTicket dispute in Model.Disputes)
+                    {
+                        <tr>
+                            <td>@dispute.CreatedUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@dispute.Id.ToString("N")[..10]</td>
+                            <td>
+                                <span class="pill @(dispute.Status == DisputeStatus.Resolved ? "pill-in" : "pill-out")">@dispute.Status</span>
+                            </td>
+                            <td>@dispute.Reason</td>
+                            <td>@(string.IsNullOrWhiteSpace(dispute.AdminNotes) ? "-" : dispute.AdminNotes)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

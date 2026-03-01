@@ -1,0 +1,185 @@
+@page
+@model AtmMachine.WebUI.Pages.SettingsModel
+@{
+    ViewData["Title"] = "Settings";
+}
+
+@if (Model.ProfileUser is null)
+{
+    <section class="panel"><p>Unable to load your profile.</p></section>
+    return;
+}
+
+<section class="dashboard-head reveal">
+    <div>
+        <p class="eyebrow">Settings</p>
+        <h1>Profile and security</h1>
+        <p class="muted">Manage contact details, preferences, devices, and account freeze controls.</p>
+    </div>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="banner success">@Model.SuccessMessage</div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="banner error">@Model.ErrorMessage</div>
+}
+
+<section class="split-page">
+    <article class="panel reveal">
+        <div class="section-head">
+            <h3>Profile</h3>
+            <span>@Model.ProfileUser.Email</span>
+        </div>
+        <form method="post" asp-page-handler="Profile" class="stack">
+            <input type="hidden" asp-for="AccountId" />
+            <div class="split-2">
+                <label class="field">
+                    <span>First name</span>
+                    <input asp-for="FirstName" required />
+                </label>
+                <label class="field">
+                    <span>Last name</span>
+                    <input asp-for="LastName" required />
+                </label>
+            </div>
+            <label class="field">
+                <span>Address</span>
+                <input asp-for="Address" />
+            </label>
+            <label class="field">
+                <span>Phone</span>
+                <input asp-for="Phone" />
+            </label>
+            <button type="submit" class="btn btn-primary">Save Profile</button>
+        </form>
+    </article>
+
+    <article class="panel reveal">
+        <div class="section-head">
+            <h3>Preferences</h3>
+            <span>Notifications</span>
+        </div>
+        <form method="post" asp-page-handler="Preferences" class="stack">
+            <input type="hidden" asp-for="AccountId" />
+            <label class="toggle-row">
+                <input asp-for="EmailNotificationsEnabled" type="checkbox" />
+                <span>Email notifications</span>
+            </label>
+            <label class="toggle-row">
+                <input asp-for="SecurityAlertsEnabled" type="checkbox" />
+                <span>Security alerts</span>
+            </label>
+            <label class="toggle-row">
+                <input asp-for="MarketingEmailsEnabled" type="checkbox" />
+                <span>Marketing emails</span>
+            </label>
+            <button type="submit" class="btn btn-primary">Save Preferences</button>
+        </form>
+    </article>
+</section>
+
+<section class="panel reveal">
+    <div class="section-head">
+        <h3>Freeze / Unfreeze Accounts</h3>
+        <span>Transfer lock control</span>
+    </div>
+    @if (Model.Accounts.Count == 0)
+    {
+        <p class="muted">No accounts found.</p>
+    }
+    else
+    {
+        <div class="actions-grid">
+            @foreach (BankAccount account in Model.Accounts)
+            {
+                <article class="panel account-mini">
+                    <h4>@account.Nickname</h4>
+                    <p class="muted">@account.Type • @account.Status</p>
+                    <p><strong>@account.AvailableBalance.ToString("C")</strong></p>
+                    <form method="post" asp-page-handler="ToggleFreeze">
+                        <input type="hidden" name="accountId" value="@account.Id" />
+                        <input type="hidden" name="freeze" value="@(account.Status == BankAccountStatus.Active ? "true" : "false")" />
+                        <button type="submit" class="btn @(account.Status == BankAccountStatus.Active ? "btn-warning" : "btn-primary")">
+                            @(account.Status == BankAccountStatus.Active ? "Freeze" : "Unfreeze")
+                        </button>
+                    </form>
+                </article>
+            }
+        </div>
+    }
+</section>
+
+<section class="split-page">
+    <article class="panel reveal">
+        <div class="section-head">
+            <h3>Login History</h3>
+            <span>@Model.LoginHistory.Count</span>
+        </div>
+        @if (Model.LoginHistory.Count == 0)
+        {
+            <p class="muted">No login history recorded yet.</p>
+        }
+        else
+        {
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Device</th>
+                            <th>IP</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (LoginRecord login in Model.LoginHistory)
+                        {
+                            <tr>
+                                <td>@login.TimestampUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>@login.DeviceName</td>
+                                <td>@login.IpAddress</td>
+                                <td>
+                                    <span class="pill @(login.IsNewDevice ? "pill-out" : "pill-in")">
+                                        @(login.IsNewDevice ? "New Device" : "Known Device")
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </article>
+
+    <article class="panel reveal">
+        <div class="section-head">
+            <h3>Trusted Devices</h3>
+            <span>@Model.Devices.Count</span>
+        </div>
+        @if (Model.Devices.Count == 0)
+        {
+            <p class="muted">No devices recorded yet.</p>
+        }
+        else
+        {
+            <ul class="activity-list">
+                @foreach (DeviceRecord device in Model.Devices)
+                {
+                    <li>
+                        <div>
+                            <p class="activity-title">@device.DeviceName</p>
+                            <p class="activity-subtitle">First: @device.FirstSeenUtc.ToLocalTime().ToString("yyyy-MM-dd")</p>
+                        </div>
+                        <div class="activity-right">
+                            <span>@device.LastSeenUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</span>
+                            <span class="pill @(device.Trusted ? "pill-in" : "pill-out")">@(device.Trusted ? "Trusted" : "Untrusted")</span>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+    </article>
+</section>

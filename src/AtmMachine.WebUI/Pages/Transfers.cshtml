@@ -1,0 +1,246 @@
+@page
+@using AtmMachine.WebUI.Banking.Models
+@model AtmMachine.WebUI.Pages.TransfersModel
+@{
+    ViewData["Title"] = "Transfers";
+}
+
+@if (Model.Snapshot is null)
+{
+    <section class="panel"><p>Session unavailable.</p></section>
+    return;
+}
+
+<section class="dashboard-head reveal">
+    <div>
+        <p class="eyebrow">Transfers</p>
+        <h1>Move money</h1>
+        <p class="muted">Internal, external ACH, scheduled, and recurring transfers.</p>
+    </div>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="banner success">@Model.SuccessMessage</div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="banner error">@Model.ErrorMessage</div>
+}
+
+<section class="split-page">
+    <article class="panel reveal">
+        <h3>Internal Transfer</h3>
+        <form method="post" asp-page-handler="Internal" class="stack">
+            <label class="field">
+                <span>From</span>
+                <select name="sourceAccountId" required>
+                    @foreach (BankAccount account in Model.Snapshot.Accounts.Where(account => account.Type != BankAccountType.ExternalLinked))
+                    {
+                        <option value="@account.Id">@account.Nickname (@account.AvailableBalance.ToString("C"))</option>
+                    }
+                </select>
+            </label>
+            <label class="field">
+                <span>To</span>
+                <select name="destinationAccountId" required>
+                    @foreach (BankAccount account in Model.Snapshot.Accounts.Where(account => account.Type != BankAccountType.ExternalLinked))
+                    {
+                        <option value="@account.Id">@account.Nickname (@account.Type)</option>
+                    }
+                </select>
+            </label>
+            <label class="field">
+                <span>Amount</span>
+                <input name="amount" type="number" step="0.01" min="0.01" required />
+            </label>
+            <label class="field">
+                <span>Memo</span>
+                <input name="memo" />
+            </label>
+            <label class="field">
+                <span>Run time (optional)</span>
+                <input name="scheduledForUtc" type="datetime-local" />
+            </label>
+            <label class="field">
+                <span>Frequency</span>
+                <select name="frequency">
+                    <option value="OneTime">One-time</option>
+                    <option value="Weekly">Weekly recurring</option>
+                    <option value="Monthly">Monthly recurring</option>
+                </select>
+            </label>
+            <button type="submit" class="btn btn-primary">Submit Internal Transfer</button>
+        </form>
+    </article>
+
+    <article class="panel reveal">
+        <h3>External ACH Transfer</h3>
+        @if (Model.ExternalAccounts.Count == 0)
+        {
+            <p class="muted">No linked external accounts yet. Link one below.</p>
+        }
+        else
+        {
+            <form method="post" asp-page-handler="External" class="stack">
+                <label class="field">
+                    <span>From account</span>
+                    <select name="sourceAccountId" required>
+                        @foreach (BankAccount account in Model.Snapshot.Accounts.Where(account => account.Type != BankAccountType.ExternalLinked))
+                        {
+                            <option value="@account.Id">@account.Nickname (@account.AvailableBalance.ToString("C"))</option>
+                        }
+                    </select>
+                </label>
+                <label class="field">
+                    <span>External destination</span>
+                    <select name="externalAccountId" required>
+                        @foreach (LinkedExternalAccount account in Model.ExternalAccounts)
+                        {
+                            <option value="@account.Id">@account.BankName @account.AccountMask</option>
+                        }
+                    </select>
+                </label>
+                <label class="field">
+                    <span>Amount</span>
+                    <input name="amount" type="number" step="0.01" min="0.01" required />
+                </label>
+                <label class="field">
+                    <span>Memo</span>
+                    <input name="memo" />
+                </label>
+                <label class="field">
+                    <span>Run time (optional)</span>
+                    <input name="scheduledForUtc" type="datetime-local" />
+                </label>
+                <label class="field">
+                    <span>Frequency</span>
+                    <select name="frequency">
+                        <option value="OneTime">One-time</option>
+                        <option value="Weekly">Weekly recurring</option>
+                        <option value="Monthly">Monthly recurring</option>
+                    </select>
+                </label>
+                <button type="submit" class="btn btn-warning">Submit ACH Transfer</button>
+            </form>
+        }
+    </article>
+</section>
+
+<section class="panel reveal">
+    <h3>Send to Another User</h3>
+    @if (Model.RecipientAccounts.Count == 0)
+    {
+        <p class="muted">No recipient accounts are available for quick-pick yet. Use email transfer below.</p>
+    }
+    else
+    {
+        <form method="post" asp-page-handler="Peer" class="stack">
+            <label class="field">
+                <span>From account</span>
+                <select name="sourceAccountId" required>
+                    @foreach (BankAccount account in Model.Snapshot.Accounts.Where(account => account.Type != BankAccountType.ExternalLinked))
+                    {
+                        <option value="@account.Id">@account.Nickname (@account.AvailableBalance.ToString("C"))</option>
+                    }
+                </select>
+            </label>
+            <label class="field">
+                <span>Recipient account</span>
+                <select name="destinationAccountId" required>
+                    @foreach (TransferRecipientAccount recipient in Model.RecipientAccounts)
+                    {
+                        <option value="@recipient.AccountId">
+                            @recipient.RecipientName (@recipient.RecipientEmail) - @recipient.AccountNickname @recipient.MaskedAccountNumber
+                        </option>
+                    }
+                </select>
+            </label>
+            <label class="field">
+                <span>Amount</span>
+                <input name="amount" type="number" step="0.01" min="0.01" required />
+            </label>
+            <label class="field">
+                <span>Memo</span>
+                <input name="memo" />
+            </label>
+            <label class="field">
+                <span>Run time (optional)</span>
+                <input name="scheduledForUtc" type="datetime-local" />
+            </label>
+            <label class="field">
+                <span>Frequency</span>
+                <select name="frequency">
+                    <option value="OneTime">One-time</option>
+                    <option value="Weekly">Weekly recurring</option>
+                    <option value="Monthly">Monthly recurring</option>
+                </select>
+            </label>
+            <button type="submit" class="btn btn-primary">Send to User</button>
+        </form>
+    }
+
+    <form method="post" asp-page-handler="PeerByEmail" class="stack compact">
+        <label class="field">
+            <span>From account</span>
+            <select name="sourceAccountId" required>
+                @foreach (BankAccount account in Model.Snapshot.Accounts.Where(account => account.Type != BankAccountType.ExternalLinked))
+                {
+                    <option value="@account.Id">@account.Nickname (@account.AvailableBalance.ToString("C"))</option>
+                }
+            </select>
+        </label>
+        <label class="field">
+            <span>Recipient email</span>
+            <input name="recipientEmail" type="email" placeholder="friend@example.com" required />
+        </label>
+        <label class="field">
+            <span>Recipient account type</span>
+            <select name="recipientAccountType">
+                <option value="">Auto-select active account</option>
+                <option value="Checking">Checking</option>
+                <option value="Savings">Savings</option>
+            </select>
+        </label>
+        <label class="field">
+            <span>Amount</span>
+            <input name="amount" type="number" step="0.01" min="0.01" required />
+        </label>
+        <label class="field">
+            <span>Memo</span>
+            <input name="memo" />
+        </label>
+        <label class="field">
+            <span>Run time (optional)</span>
+            <input name="scheduledForUtc" type="datetime-local" />
+        </label>
+        <label class="field">
+            <span>Frequency</span>
+            <select name="frequency">
+                <option value="OneTime">One-time</option>
+                <option value="Weekly">Weekly recurring</option>
+                <option value="Monthly">Monthly recurring</option>
+            </select>
+        </label>
+        <button type="submit" class="btn btn-outline">Send by Email</button>
+    </form>
+</section>
+
+<section class="panel reveal">
+    <h3>Link External Account (Mock)</h3>
+    <form method="post" asp-page-handler="LinkExternal" class="stack">
+        <label class="field">
+            <span>Bank name</span>
+            <input name="bankName" placeholder="Acme Federal" required />
+        </label>
+        <label class="field">
+            <span>Nickname</span>
+            <input name="nickname" placeholder="Payroll account" />
+        </label>
+        <label class="field">
+            <span>Account mask</span>
+            <input name="accountMask" placeholder="****7732" required />
+        </label>
+        <button type="submit" class="btn btn-primary">Link Account</button>
+    </form>
+</section>

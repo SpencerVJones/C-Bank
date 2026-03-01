@@ -1,0 +1,73 @@
+@page
+@using AtmMachine.WebUI.Banking.Models
+@model AtmMachine.WebUI.Pages.StatementsModel
+@{
+    ViewData["Title"] = "Statements";
+}
+
+@if (Model.Snapshot is null)
+{
+    <section class="panel"><p>Session unavailable.</p></section>
+    return;
+}
+
+<section class="dashboard-head reveal">
+    <div>
+        <p class="eyebrow">Statements</p>
+        <h1>Monthly exports</h1>
+        <p class="muted">Download fake PDF or CSV statements.</p>
+    </div>
+</section>
+
+<section class="panel reveal">
+    <form method="get" class="filter-grid">
+        <label class="field">
+            <span>Account</span>
+            <select asp-for="AccountId">
+                @foreach (BankAccount account in Model.Snapshot.Accounts)
+                {
+                    <option value="@account.Id">@account.Nickname (@account.Type)</option>
+                }
+            </select>
+        </label>
+        <label class="field">
+            <span>Year</span>
+            <input asp-for="Year" type="number" min="2020" max="2100" />
+        </label>
+        <label class="field">
+            <span>Month</span>
+            <select asp-for="Month">
+                @for (int month = 1; month <= 12; month++)
+                {
+                    <option value="@month">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)</option>
+                }
+            </select>
+        </label>
+        <button type="submit" class="btn btn-primary">Load Statement</button>
+    </form>
+</section>
+
+@if (Model.Account is not null)
+{
+    <section class="panel reveal">
+        <div class="section-head">
+            <h3>Statement Actions</h3>
+            <span>@Model.Account.Nickname</span>
+        </div>
+        <div class="actions-inline">
+            <a class="btn btn-primary"
+               asp-page-handler="Pdf"
+               asp-route-accountId="@Model.Account.Id"
+               asp-route-year="@Model.Year"
+               asp-route-month="@Model.Month">Download PDF</a>
+            <a class="btn btn-ghost"
+               asp-page-handler="Csv"
+               asp-route-accountId="@Model.Account.Id"
+               asp-route-year="@Model.Year"
+               asp-route-month="@Model.Month">Download CSV</a>
+        </div>
+        <p class="muted">
+            Statement period: @Model.Year-@Model.Month.ToString("D2"). Account status: @Model.Account.Status.
+        </p>
+    </section>
+}
