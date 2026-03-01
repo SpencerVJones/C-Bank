@@ -5,6 +5,8 @@
 .vscode/
 data/accounts.json
 TestResults/
+src/AtmMachine.WebUI/appsettings.Local.json
+src/AtmMachine.WebUI/appsettings.Development.local.json
 
 *.user
 *.suo

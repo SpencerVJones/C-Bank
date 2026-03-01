@@ -416,7 +416,7 @@ Open:
 http://127.0.0.1:5074/Login
 ```
 
-Persistence provider defaults to Firebase in this repo configuration.
+Persistence provider defaults to SQLite in this repo configuration.
 Optional override:
 ```bash
 Banking__Provider=json dotnet run --project src/AtmMachine.WebUI/AtmMachine.WebUI.csproj --launch-profile http
