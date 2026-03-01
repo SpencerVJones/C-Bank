@@ -1,12 +1,12 @@
 <div align="center">
-  <h2 align="center">ConsoleATM Digital Banking</h2>
+  <h2 align="center">C# Digital Banking App</h2>
   <div align="left">
 
 ![Repo Views](https://visitor-badge.laobi.icu/badge?page_id=SpencerVJones/ConsoleATM)
 </div>
 
   <p align="center">
-    A portfolio-grade .NET banking simulation with an append-only double-entry ledger, fraud scoring, event-driven settlement, and real-time operational alerts.
+    A .NET banking simulation with an append-only double-entry ledger, fraud scoring, event-driven settlement, and real-time operational alerts.
     <br />
     <br />
     <a href="https://github.com/SpencerVJones/ConsoleATM/issues">Report Bug</a>
