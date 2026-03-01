@@ -3,6 +3,7 @@ using AtmMachine.WebUI.Banking.Models;
 using AtmMachine.WebUI.Banking.Services;
 using AtmMachine.WebUI.Observability;
 using AtmMachine.WebUI.Realtime;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AtmMachine.Tests;
@@ -134,8 +135,8 @@ public sealed class BankingIntegrationTests
         Assert.Equal(2, ledgerState.Entries.Count);
         Assert.Equal(2, ledgerState.Transactions.Count);
 
-        LedgerEntry debit = Assert.Single(ledgerState.Entries.Where(entry => entry.AvailableDelta < 0m));
-        LedgerEntry credit = Assert.Single(ledgerState.Entries.Where(entry => entry.AvailableDelta > 0m));
+        LedgerEntry debit = Assert.Single(ledgerState.Entries, entry => entry.AvailableDelta < 0m);
+        LedgerEntry credit = Assert.Single(ledgerState.Entries, entry => entry.AvailableDelta > 0m);
 
         Assert.Equal(-25.00m, debit.AvailableDelta);
         Assert.Equal(-25.00m, debit.LedgerDelta);
@@ -250,12 +251,12 @@ public sealed class BankingIntegrationTests
         IReadOnlyList<BankAccount> after = await harness.Service.GetAccountsAsync(user.UserId.Value);
         Assert.Equal(before.Count + 1, after.Count);
 
-        BankAccount newAccount = Assert.Single(after.Where(account => account.Id == opened.AccountId.Value));
+        BankAccount newAccount = Assert.Single(after, account => account.Id == opened.AccountId.Value);
         Assert.Equal(BankAccountType.Checking, newAccount.Type);
         Assert.Equal("Travel Card", newAccount.Nickname);
         Assert.Equal(125.00m, newAccount.AvailableBalance);
 
-        BankAccount sourceAfter = Assert.Single(after.Where(account => account.Id == source.Id));
+        BankAccount sourceAfter = Assert.Single(after, account => account.Id == source.Id);
         Assert.Equal(sourceBefore - 125.00m, sourceAfter.AvailableBalance);
 
         (List<LedgerEntry> Entries, List<BankTransaction> Transactions, List<DomainEventRecord> DomainEvents) state =
@@ -518,7 +519,15 @@ public sealed class BankingIntegrationTests
             string dbPath = Path.Combine(tempDirectory, "banking-integration.sqlite");
 
             IBankingDataStore store = new SqliteBankingDataStore(dbPath);
-            BankingSecurityService security = new();
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    ["Banking:Security:JwtSigningKey"] = "integration-tests-signing-key-at-least-32-bytes"
+                })
+                .Build();
+            BankingSecurityService security = new(
+                configuration,
+                NullLogger<BankingSecurityService>.Instance);
             FirebaseAuthClient firebaseAuthClient = new(
                 new HttpClient(),
                 new FirebaseAuthOptions(
