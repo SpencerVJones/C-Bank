@@ -2,16 +2,16 @@
   <h2 align="center">C# Digital Banking App</h2>
   <div align="left">
 
-![Repo Views](https://visitor-badge.laobi.icu/badge?page_id=SpencerVJones/ConsoleATM)
+![Repo Views](https://visitor-badge.laobi.icu/badge?page_id=SpencerVJones/C-Bank)
 </div>
 
   <p align="center">
     A .NET banking simulation with an append-only double-entry ledger, fraud scoring, event-driven settlement, and real-time operational alerts.
     <br />
     <br />
-    <a href="https://github.com/SpencerVJones/ConsoleATM/issues">Report Bug</a>
+    <a href="https://github.com/SpencerVJones/C-Bank/issues">Report Bug</a>
     ·
-    <a href="https://github.com/SpencerVJones/ConsoleATM/issues">Request Feature</a>
+    <a href="https://github.com/SpencerVJones/C-Bank/issues">Request Feature</a>
   </p>
 </div>
 
@@ -19,13 +19,13 @@
 <!-- PROJECT SHIELDS -->
 <div align="center">
 
-![License](https://img.shields.io/github/license/SpencerVJones/ConsoleATM?style=for-the-badge)
-![Contributors](https://img.shields.io/github/contributors/SpencerVJones/ConsoleATM?style=for-the-badge)
-![Forks](https://img.shields.io/github/forks/SpencerVJones/ConsoleATM?style=for-the-badge)
-![Stargazers](https://img.shields.io/github/stars/SpencerVJones/ConsoleATM?style=for-the-badge)
-![Issues](https://img.shields.io/github/issues/SpencerVJones/ConsoleATM?style=for-the-badge)
-![Last Commit](https://img.shields.io/github/last-commit/SpencerVJones/ConsoleATM?style=for-the-badge)
-![Repo Size](https://img.shields.io/github/repo-size/SpencerVJones/ConsoleATM?style=for-the-badge)
+![License](https://img.shields.io/github/license/SpencerVJones/C-Bank?style=for-the-badge)
+![Contributors](https://img.shields.io/github/contributors/SpencerVJones/C-Bank?style=for-the-badge)
+![Forks](https://img.shields.io/github/forks/SpencerVJones/C-Bank?style=for-the-badge)
+![Stargazers](https://img.shields.io/github/stars/SpencerVJones/C-Bank?style=for-the-badge)
+![Issues](https://img.shields.io/github/issues/SpencerVJones/C-Bank?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/SpencerVJones/C-Bank?style=for-the-badge)
+![Repo Size](https://img.shields.io/github/repo-size/SpencerVJones/C-Bank?style=for-the-badge)
 ![Platform](https://img.shields.io/badge/platform-Web%20%7C%20Console-lightgrey.svg?style=for-the-badge)
 ![API](https://img.shields.io/badge/API-REST%20v1-0ea5e9.svg?style=for-the-badge)
 ![.NET](https://img.shields.io/badge/.NET-9-512BD4.svg?style=for-the-badge)
@@ -263,56 +263,6 @@ Notes:
   - `POST /api/v1/money/income`
   - `POST /api/v1/money/expense`
 
-## API Examples
-Health check:
-```bash
-curl -s http://127.0.0.1:5074/api/v1/health
-```
-
-Ledger query (authenticated request example):
-```bash
-curl -s "http://127.0.0.1:5074/api/v1/transactions?state=Posted&category=Dining"
-```
-
-Internal transfer payload:
-```json
-{
-  "sourceAccountId": "00000000-0000-0000-0000-000000000001",
-  "destinationAccountId": "00000000-0000-0000-0000-000000000002",
-  "amount": 25.75,
-  "memo": "Dinner split",
-  "scheduledForUtc": null,
-  "frequency": "OneTime"
-}
-```
-
-Transfer request example:
-```bash
-curl -X POST http://127.0.0.1:5074/api/v1/transfers/internal \
-  -H "Content-Type: application/json" \
-  -H "Idempotency-Key: transfer-demo-001" \
-  -d '{
-    "sourceAccountId":"00000000-0000-0000-0000-000000000001",
-    "destinationAccountId":"00000000-0000-0000-0000-000000000002",
-    "amount":25.75,
-    "memo":"Dinner split",
-    "scheduledForUtc":null,
-    "frequency":"OneTime"
-  }'
-```
-
-Open account request example:
-```bash
-curl -X POST http://127.0.0.1:5074/api/v1/accounts \
-  -H "Content-Type: application/json" \
-  -d '{
-    "accountType":"Checking",
-    "nickname":"Travel Card",
-    "openingDeposit":50.00,
-    "fundingSourceAccountId":"00000000-0000-0000-0000-000000000001"
-  }'
-```
-
 ## Testing
 Automated test project is included:
 - `tests/AtmMachine.Tests`
@@ -335,7 +285,7 @@ dotnet test tests/AtmMachine.Tests/AtmMachine.Tests.csproj
 ### Installation
 1. Clone the repository:
 ```bash
-git clone https://github.com/SpencerVJones/ConsoleATM.git
+git clone https://github.com/SpencerVJones/C-Bank.git
 ```
 2. Move into the project:
 ```bash
@@ -470,8 +420,8 @@ Contributions are welcome.
 - Open a pull request
 
 ### Contributors
-<a href="https://github.com/SpencerVJones/ConsoleATM/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=SpencerVJones/ConsoleATM"/>
+<a href="https://github.com/SpencerVJones/C-Bank/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=SpencerVJones/C-Bank"/>
 </a>
 
 ## License
@@ -482,6 +432,3 @@ Spencer Jones
 📧 [jonesspencer99@icloud.com](mailto:jonesspencer99@icloud.com)  
 🔗 [GitHub Profile](https://github.com/SpencerVJones)  
 🔗 [Project Repository](https://github.com/SpencerVJones/ConsoleATM)
-
----
-If you rename this repository, update `SpencerVJones/ConsoleATM` in badge and link URLs.
