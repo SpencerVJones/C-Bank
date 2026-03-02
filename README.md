@@ -40,12 +40,12 @@
 - [Overview](#overview)
 - [Technologies Used](#technologies-used)
 - [Features](#features)
+- [Security](#security)
 - [Demo](#demo)
 - [Project Structure](#project-structure)
 - [Money Movement](#money-movement)
 - [Risk & Eventing](#risk--eventing)
 - [API Endpoints](#api-endpoints)
-- [API Examples](#api-examples)
 - [Testing](#testing)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -111,7 +111,7 @@ Admins can:
 - 📈 Observability: structured JSON logs, correlation IDs, trace IDs, and `/metrics`
 
 ## Security
-See `SECURITY.md` for the implemented auth model, lockout thresholds, rate limits, secrets handling, security headers, and RBAC boundaries.
+See [SECURITY.md](SECURITY.md) for the implemented auth model, lockout thresholds, rate limits, secrets handling, security headers, and RBAC boundaries.
 
 ## Demo
 Local run URL:
@@ -123,7 +123,7 @@ Demo credentials:
 
 ## Project Structure
 ```bash
-ConsoleATM/
+C-Bank/
 ├── README.md
 ├── LICENSE
 ├── ConsoleATM.sln
@@ -289,7 +289,7 @@ git clone https://github.com/SpencerVJones/C-Bank.git
 ```
 2. Move into the project:
 ```bash
-cd ConsoleATM
+cd C-Bank
 ```
 3. Build:
 ```bash
@@ -431,4 +431,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 Spencer Jones  
 📧 [jonesspencer99@icloud.com](mailto:jonesspencer99@icloud.com)  
 🔗 [GitHub Profile](https://github.com/SpencerVJones)  
-🔗 [Project Repository](https://github.com/SpencerVJones/ConsoleATM)
+🔗 [Project Repository](https://github.com/SpencerVJones/C-Bank)
